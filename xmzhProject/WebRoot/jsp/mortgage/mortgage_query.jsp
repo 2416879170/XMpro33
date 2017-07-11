@@ -117,6 +117,9 @@
 								产权证号码
 						  </th>
 						  <th nowrap="nowrap">
+								产权地址
+						  </th>
+						  <th nowrap="nowrap">
 								入库时间
 						  </th>
 						   <th nowrap="nowrap">
@@ -180,6 +183,9 @@
 			   <td nowrap="nowrap">
 			    	<b:write iterateId="id1" property="propertyNo"/>
 			  </td>	
+			  <td nowrap="nowrap">
+			    	<b:write iterateId="id1" property="propertyAddres"/>
+			  </td>			  
 			   <td nowrap="nowrap">
 			    	<b:write iterateId="id1" property="insertTime"/>
 			  </td>	

@@ -38,6 +38,8 @@
 		<result property="otherType" jdbcType="string" column="OTHER_TYPE"/>
 		<result property="loanType" jdbcType="string" column="LOAN_TYPE"/>
 		<result property="num" jdbcType="string" column="NUM"/>
+		<result property="ztnums" jdbcType="string" column="ZTNUMS"/>
+		<result property="subnums" jdbcType="string" column="SUBNUMS"/>
 	</resultMap>
 	
 	<resultMap class="InventoryStat" id="inventoryStatListByTable">
@@ -68,11 +70,13 @@
 		<result property="otherType" jdbcType="string" column="OTHERTYPE"/>
 		<result property="loanType" jdbcType="string" column="LOANTYPE"/>
 		<result property="num" jdbcType="string" column="NUM"/>
+		<result property="ztnums" jdbcType="string" column="ZTNUMS"/>
+		<result property="subnums" jdbcType="string" column="SUBNUMS"/>
 	</resultMap>
 	<resultMap class="InventoryStat" id="timeMap">
 		<result property="statTime" jdbcType="string" column="STATTIME"/>
 	</resultMap>
-	<!-- 库存统计  -->
+	<!-- 库存统计 房产 -->
 	<select id="queryInventoryStatListByHouse" parameterClass="java.util.HashMap" resultMap="inventoryStatMap">
 <!--  select '$statTime$' STATTIME,
        decode(grouping(T.LOAN_TYPE) + grouping(T.OTHER_TYPE),
@@ -518,6 +522,19 @@
         
         ) G
      -->
+     select nn.*,nvl(nn.num-nn.ztnums,0) as subnums from (
+select mm.*,
+       nvl((
+       select  j.NUM from T_WARRANTS_INVENTORY_STAT j
+       where 1=1
+       and j.STATTIME =  to_char(sysdate-1,'yyyymmdd')
+       and mm.MORTGAGE_TYPE=j.mortgagetype
+       and mm.WARRANTS_TYPE=j.warrantstype
+       and mm.loan_type=j.loantype  
+       and mm.OTHER_TYPE=j.othertype
+       ),0) as ZTNUMS
+from(
+
      select 
        '$statTime$' STATTIME,
        '房产' as MORTGAGE_TYPE,'他项' as WARRANTS_TYPE,
@@ -563,6 +580,9 @@
          where t.mortgage_type = '1' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE, T.OTHER_TYPE) gg
          where 1 = 1
+          <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
              gg.INSERT_TIME <= '$statTime$'
@@ -619,16 +639,32 @@
          where o.mortgage_type = '1' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.other_type, o.mortgage_type) gg
          where 1 = 1
+          <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
     <!-- <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
                ]]>
      </isNotNull>-->
  GROUP BY GROUPING SETS(('房产','产权证', gg.LOAN_TYPE, gg.OTHER_TYPE),(gg.LOAN_TYPE),())
- 
+  ) mm
+) nn
 	</select>
 	<!-- 押品类型为机动车的库存查询 -->
 	<select id="queryInventoryStatListByCar" parameterClass="java.util.HashMap" resultMap="inventoryStatMap">
+select nn.*,nvl(nn.num-nn.ztnums,0) as subnums from (
+select mm.*,
+       nvl((
+       select  j.NUM from T_WARRANTS_INVENTORY_STAT j
+       where 1=1
+       and j.STATTIME =  to_char(sysdate-1,'yyyymmdd')
+       and mm.MORTGAGE_TYPE=j.mortgagetype
+       and mm.WARRANTS_TYPE=j.warrantstype
+       and mm.loan_type=j.loantype  
+       and mm.OTHER_TYPE=j.othertype
+       ),0) as ZTNUMS
+from(
 
 select 
        '$statTime$' STATTIME,
@@ -645,6 +681,9 @@ select
          where t.mortgage_type = '2' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE) gg
          where 1 = 1
+         <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
    <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -671,15 +710,33 @@ select
          where o.mortgage_type = '2' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.mortgage_type) gg
          where 1 = 1
+         <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
                ]]>
      </isNotNull> -->
  GROUP BY GROUPING SETS(('机动车','机动车登记证', gg.LOAN_TYPE),())
+  ) mm
+) nn
 	</select>
-	<!-- 库存查询 -->
+		
+	<!-- 库存统计  -->
 	<select id="queryInventoryStatList" parameterClass="java.util.HashMap" resultMap="inventoryStatMap">
+select nn.*,nvl(nn.num-nn.ztnums,0) as subnums from (
+select mm.*,
+       nvl((
+       select  j.NUM from T_WARRANTS_INVENTORY_STAT j
+       where 1=1
+       and j.STATTIME =  to_char(sysdate-1,'yyyymmdd')
+       and mm.MORTGAGE_TYPE=j.mortgagetype
+       and mm.WARRANTS_TYPE=j.warrantstype
+       and mm.loan_type=j.loantype  
+       and mm.OTHER_TYPE=j.othertype
+       ),0) as ZTNUMS
+from(
      select 
        '$statTime$' STATTIME,
        '房产' as MORTGAGE_TYPE,'他项' as WARRANTS_TYPE,
@@ -725,6 +782,9 @@ select
          where t.mortgage_type = '1' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE, T.OTHER_TYPE) gg
          where 1 = 1
+          <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -781,6 +841,9 @@ select
          where o.mortgage_type = '1' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.other_type, o.mortgage_type) gg
          where 1 = 1
+           <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -805,6 +868,9 @@ select
          where t.mortgage_type = '2' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE) gg
          where 1 = 1
+          <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
    <!--   <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -831,21 +897,40 @@ select
          where o.mortgage_type = '2' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.mortgage_type) gg
          where 1 = 1
+           <![CDATA[
+          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
+          ]]>
    <!--   <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
                ]]>
      </isNotNull> -->
  GROUP BY GROUPING SETS(('机动车','机动车登记证', gg.LOAN_TYPE),())
+  ) mm
+) nn
 	</select>
+	
+	
 	<select id="queryTime" parameterClass="java.util.HashMap" resultMap="timeMap">
 	  select  distinct substr(P.Insert_Time, 0, 8) as STATTIME from T_WARRANTS_INFO P
 	</select>
 	
 	<select id="queryInventoryStatListByTable" parameterClass="java.util.HashMap" resultMap="inventoryStatListByTable">
+	select nn.*,nvl(nn.num-nn.ztnums,0) as subnums from (
+select mm.*,
+       nvl((
+       select  j.NUM from T_WARRANTS_INVENTORY_STAT j
+       where 1=1
+       and j.STATTIME =  to_char(to_date('$statTime$','yyyymmdd')-1,'yyyymmdd')
+       and mm.MORTGAGETYPE=j.mortgagetype
+       and mm.WARRANTSTYPE=j.warrantstype
+       and mm.loantype=j.loantype  
+       and mm.OTHERTYPE=j.othertype
+       ),0) as ZTNUMS
+from(
 	  select  * from T_WARRANTS_INVENTORY_STAT 
 	  where 1=1
-         <isNotNull prepend="and" property="inTimeStart" >
+      <!--    <isNotNull prepend="and" property="inTimeStart" >
         <![CDATA[
            STATTIME >=  '$inTimeStart$'
                ]]>
@@ -854,6 +939,11 @@ select
         <![CDATA[
            STATTIME <=  '$inTimeEnd$'
                ]]>
+      </isNotNull> -->
+      <isNotNull prepend="and" property="statTime" >
+        <![CDATA[
+           STATTIME =  '$statTime$'
+               ]]>
       </isNotNull>
 	     <isNotNull prepend="and" property="mortgageType" >
 	     <![CDATA[
@@ -861,6 +951,8 @@ select
 	               ]]>
 	     </isNotNull>
 	     order by statid
+  ) mm
+) nn
 	</select>
 	
 	<insert id="insertInventoryStat" parameterClass="java.util.HashMap">

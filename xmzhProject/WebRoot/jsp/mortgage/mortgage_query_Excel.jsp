@@ -29,6 +29,7 @@
 		<th height="34" width="100" align="center" class="form_label">借款合同号</th>
 		<th height="34" width="200" align="center" class="form_label">产权人姓名</th>
 		<th height="34" width="100" align="center" class="form_label">产权证号码</th>
+		<th height="34" width="100" align="center" class="form_label">产权地址</th>
 		<th height="34" width="100" align="center" class="form_label">入库时间</th>
 		<th height="34" width="100" align="center" class="form_label">补登记标志</th>
 	</tr>
@@ -72,6 +73,9 @@
 			  </td>
 			    <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="propertyNo"/>
+			  </td>
+			  <td style="vnd.ms-excel.numberformat:@">
+			   <b:write iterateId="id1" property="propertyAddres"/>
 			  </td>
 			  <td style="vnd.ms-excel.numberformat:@">
 			   <b:write iterateId="id1" property="insertTime"/>

@@ -214,7 +214,9 @@
 		<th height="34" width="100" align="center" class="form_label">权证种类</th>
 		<th height="34" width="100" align="center" class="form_label">贷款种类</th>
 	<!-- 	<th height="34" width="100" align="center" class="form_label">他项类型</th> -->
-		<th height="34" width="100" align="center" class="form_label">数量</th>
+		<th height="34" width="100" align="center" class="form_label">昨日结存</th>
+		<th height="34" width="100" align="center" class="form_label">本日发生(本日结存-昨日结存)</th>
+		<th height="34" width="100" align="center" class="form_label">本日结存</th>
 	</tr>
 	<l:iterate property="inventoryStatList" id="id1">
 			<tr class="<l:output evenOutput='EOS_table_row' />">
@@ -233,6 +235,12 @@
 				<!-- <td style="vnd.ms-excel.numberformat:@"> 
 					<b:write iterateId="id1" property="otherType" />
 				</td> -->
+				<td> 
+					<b:write iterateId="id1" property="ztnums" />
+				</td>
+				<td> 
+					<b:write iterateId="id1" property="subnums" />
+				</td>
 				<td> 
 					<b:write iterateId="id1" property="num" />
 				</td>

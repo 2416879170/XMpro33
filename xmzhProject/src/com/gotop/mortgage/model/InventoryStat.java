@@ -11,14 +11,20 @@ public class InventoryStat implements Serializable{
 	private static final long serialVersionUID = 2232407149888537837L;
 //  统计时间
 	private String statTime;
+//  统计时间2 定时
+	private String statTime2;
 // 押品类型
 	private String mortgageType;
 // 他项类型	
 	private String otherType;	
 // 贷种类型
 	private String loanType;
-// 数量
+// 数量(本日结存)
 	private String num;
+// 数量(昨日结存)
+	private String ztnums;
+// 数量(本日发生,本日结存-昨日结存)
+	private String subnums;
 
 //权证种类
 	private String warrantsType;
@@ -229,6 +235,24 @@ public class InventoryStat implements Serializable{
 	}
 	public void setInTimeEnd(String inTimeEnd) {
 		this.inTimeEnd = inTimeEnd;
+	}
+	public String getStatTime2() {
+		return statTime2;
+	}
+	public void setStatTime2(String statTime2) {
+		this.statTime2 = statTime2;
+	}
+	public String getZtnums() {
+		return ztnums;
+	}
+	public void setZtnums(String ztnums) {
+		this.ztnums = ztnums;
+	}
+	public String getSubnums() {
+		return subnums;
+	}
+	public void setSubnums(String subnums) {
+		this.subnums = subnums;
 	}	
 	
 	

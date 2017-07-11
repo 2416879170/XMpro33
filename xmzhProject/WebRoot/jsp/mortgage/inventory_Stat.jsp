@@ -27,18 +27,19 @@ String str_date = TimeUtil.today();
 					<td width="20%">
 						<d:select id="mortgageType" name="inventoryStat.mortgageType" dictTypeId="MORTGAGE_RESERVE_TYPE" property="inventoryStat.mortgageType" onchange="changeMortgageType(this.value)"  ></d:select>
 					</td>
-                    <!--  <td class="form_label" align="right" width="20%">统计日期：</td>
+                    <td class="form_label" align="right" width="20%">统计日期：</td>
 					<td width="30%">	
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="statTime" name="inventoryStat.statTime" 
-					property="inventoryStat.statTime" /></td>-->
+					property="inventoryStat.statTime" value="<%=str_date%>"/></td>
+					<!-- 
 					<td class="form_label" align="right" width="20%">统计日期：</td>
 					<td width="30%">
 					从	
 					<w:date  format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="inTimeStart" name="inventoryStat.inTimeStart" 
-					property="inventoryStat.inTimeStart" value="<%=str_date%>"/> 
+					property="inventoryStat.inTimeStart" /> 
                                                             到
 					    <w:date format="yyyy-MM-dd" submitFormat="yyyyMMdd" id="inTimeEnd" name="inventoryStat.inTimeEnd" 
-					property="inventoryStat.inTimeEnd" value="<%=str_date%>"/></td>
+					property="inventoryStat.inTimeEnd" /></td> -->
                    			
 				</tr>
 				<tr class="form_bottom">
@@ -432,7 +433,13 @@ String str_date = TimeUtil.today();
 								他项类型
 							</th>
 							<th nowrap="nowrap">
-								数量
+								昨日结存
+							</th>
+							<th nowrap="nowrap">
+								本日发生(本日结存-昨日结存)
+							</th>
+							<th nowrap="nowrap">
+								本日结存
 							</th>
 						</tr>
                            <l:iterate property="inventoryStatList" id="id1">
@@ -451,6 +458,12 @@ String str_date = TimeUtil.today();
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="otherType"/>
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="ztnums" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="subnums" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="num" />
@@ -473,7 +486,13 @@ String str_date = TimeUtil.today();
 								贷款种类
 							</th>
 							<th nowrap="nowrap">
-								数量
+								昨日结存
+							</th>
+							<th nowrap="nowrap">
+								本日发生(本日结存-昨日结存)
+							</th>
+							<th nowrap="nowrap">
+								本日结存
 							</th>
 						</tr>
                            <l:iterate property="inventoryStatList" id="id1">
@@ -489,6 +508,12 @@ String str_date = TimeUtil.today();
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="loanType"/>
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="ztnums" />
+								</td>
+								<td nowrap="nowrap"> 
+									<b:write iterateId="id1" property="subnums" />
 								</td>
 								<td nowrap="nowrap"> 
 									<b:write iterateId="id1" property="num" />
@@ -577,18 +602,19 @@ String str_date = TimeUtil.today();
               if (month < 10) month = '0' + month;  
               if (day < 10) day = '0' + day;  
               var str = year + '-' + month + '-' + day;
-              $("#inTimeStart_input").val(str);
-              $("#inTimeEnd_input").val(str);
-
-              $id("inTimeStart").value=str;
-              $id("inTimeEnd").value=str;
+             // $("#inTimeStart_input").val(str);
+             // $("#inTimeEnd_input").val(str);
+                $("#statTime_input").val(str);
+                
+             // $id("inTimeStart").value=str;
+             // $id("inTimeEnd").value=str;
+                $id("statTime").value=str;
               
               $("#mortgageType").val("");
-             // $("#statTime_input").val("");
 			//清空传入后台的时间控件的值,将当前时间填入
-			$name("inventoryStat.inTimeStart").value =aaa;
-			$name("inventoryStat.inTimeEnd").value =aaa;
-			//$name("inventoryStat.statTime").value ="";
+			//$name("inventoryStat.inTimeStart").value =aaa;
+			//$name("inventoryStat.inTimeEnd").value =aaa;
+			  $name("inventoryStat.statTime").value =aaa;
 			
 			//$name("scan.repTimeEnd").value = "";
 
@@ -601,49 +627,57 @@ String str_date = TimeUtil.today();
 
 		
             function search(){
-            	//alert($id("inTimeStart").value);
-        		if($id("inTimeStart").value == "" || $id("inTimeStart").value ==null ){                
-        			 alert("开始时间不能为空！");
-        			 return;
-        		}else{
-        			if($id("inTimeEnd").value == "" || $id("inTimeEnd").value ==null){
-              			 alert("截止时间不能为空！");
-              			 return;
-              		}else{
-              			document.getElementById("statQuery").submit();
-                  		}
-            		}
+        		//if($id("inTimeStart").value == "" || $id("inTimeStart").value ==null ){                
+        		//	 alert("开始时间不能为空！");
+        		//	 return;
+        		//}else{
+        		//	if($id("inTimeEnd").value == "" || $id("inTimeEnd").value ==null){
+              	//		 alert("截止时间不能为空！");
+              	//		 return;
+              	//	}else{
+              	//		document.getElementById("statQuery").submit();
+                //  		}
+            	//	}
+            	if($id("statTime").value == "" || $id("statTime").value ==null){
+            		alert("统计日期不能为空！");
+            	    return;
+                }else{
+                	document.getElementById("statQuery").submit();
+                }
         
 			}
 
           //导出excel 	
         function excelExport(){
-          if($id("inTimeStart").value == "" || $id("inTimeStart").value ==null ){                
-   			 alert("开始时间不能为空！");
-			 return;
-		    }
-			if($id("inTimeEnd").value == "" || $id("inTimeEnd").value ==null){
-      			 alert("截止时间不能为空！");
-      			 return;
-      		}
-    		
-   				//var statTime = $id("statTime").value;
-   				var inTimeStart = $id("inTimeStart").value;
-   				var inTimeEnd = $id("inTimeEnd").value;
+          //if($id("inTimeStart").value == "" || $id("inTimeStart").value ==null ){                
+   			// alert("开始时间不能为空！");
+			// return;
+		   // }
+			//if($id("inTimeEnd").value == "" || $id("inTimeEnd").value ==null){
+      		//	 alert("截止时间不能为空！");
+      		//	 return;
+      		//}
+			if($id("statTime").value == "" || $id("statTime").value ==null ){                
+	   			 alert("开始时间不能为空！");
+				 return;
+			}
+   				var statTime = $id("statTime").value;
+   				//var inTimeStart = $id("inTimeStart").value;
+   				//var inTimeEnd = $id("inTimeEnd").value;
    			   //押品类型
    				var options=$("#mortgageType option:selected");
    				var mortgageType=options.val();
    				
    				var strUrl = "/mortgage/inventoryStatQueryAction_inventoryStatExcel.action?";
-                   // if(statTime!=null){
-                   //	 strUrl=strUrl+"&inventoryStat.statTime="+statTime;
-                  //  }
-                    if(inTimeStart!=null){
-                      	 strUrl=strUrl+"&inventoryStat.inTimeStart="+inTimeStart;
-                       }
-                    if(inTimeEnd!=null){
-                     	 strUrl=strUrl+"&inventoryStat.inTimeEnd="+inTimeEnd;
-                      }	
+                    if(statTime!=null){
+                   	 strUrl=strUrl+"&inventoryStat.statTime="+statTime;
+                    }
+                   // if(inTimeStart!=null){
+                   //   	 strUrl=strUrl+"&inventoryStat.inTimeStart="+inTimeStart;
+                   //    }
+                  //  if(inTimeEnd!=null){
+                   //  	 strUrl=strUrl+"&inventoryStat.inTimeEnd="+inTimeEnd;
+                   //   }	
                     if(mortgageType!=null){
                       	 strUrl=strUrl+"&inventoryStat.mortgageType="+mortgageType;
                        }		
