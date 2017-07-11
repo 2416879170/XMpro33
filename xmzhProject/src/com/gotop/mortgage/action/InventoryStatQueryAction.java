@@ -18,7 +18,7 @@ import com.gotop.reportjbpm.model.ProcessUsedTimeReport;
 import com.gotop.vo.system.MUOUserSession;
 import com.primeton.utils.Page;
 /**
- * 外借情况查询
+ * 库存统计
  * @author gotop
  *
  */
