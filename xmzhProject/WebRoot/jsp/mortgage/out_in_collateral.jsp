@@ -18,6 +18,7 @@
 		<h:hidden id="signType" property="mortgageReserveOut.signType"  />
 		<h:hidden id="tmpName" property="mortgageReserveOut.tmpName"  />
 		<h:hidden id="mortgageType" property="mortgageReserveOut.mortgageType"  />
+		<h:hidden id="inBorrowerNums" property="mortgageReserveOut.inBorrowerNums"  />
 		<table align="center" border="0" width="100%" class="form_table">
 		
 			<tbody id="out_log_type">

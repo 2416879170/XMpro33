@@ -686,21 +686,23 @@ public class MortgageReserveService implements IMortgageReserveService {
 			map.put("warrantsId", mortgageReserveOut.getWarrantsId());
 			map.put("borrowerNums", mortgageReserveOut.getBorrowerNums());
 			String borrowerNums="0";
-			if(!"".equals(mortgageReserveOut.getBorrowerNums())&&mortgageReserveOut.getBorrowerNums()!=null){
-				borrowerNums=mortgageReserveOut.getBorrowerNums();
-			}
+			
 			//默认他項都是为1，产权证数为实际填写所有
 			String otherWarrantsNums="1";
 			String houseWarrantsNums=mortgageReserveOut.getLogRemark();
 			if("1".equals(mortgageReserveOut.getOutInType())){
-                
+				if(!"".equals(mortgageReserveOut.getBorrowerNums())&&mortgageReserveOut.getBorrowerNums()!=null){
+					borrowerNums=mortgageReserveOut.getBorrowerNums();
+				}
 				if("1".equals(mortgageReserveOut.getOperatingMatters())||"2".equals(mortgageReserveOut.getOperatingMatters()))
 				{
 					map.put("borrowerLog", mortgageReserveOut.getOperatingMatters());
 				}
 				
 			}else if ("2".equals(mortgageReserveOut.getOutInType())){
-				
+				if(!"".equals(mortgageReserveOut.getInBorrowerNums())&&mortgageReserveOut.getInBorrowerNums()!=null){
+					borrowerNums=mortgageReserveOut.getInBorrowerNums();
+				}
 				if("1".equals(mortgageReserveOut.getOperatingMatters()))
 				{
 					map.put("borrowerLog", "3");//外借已归还
