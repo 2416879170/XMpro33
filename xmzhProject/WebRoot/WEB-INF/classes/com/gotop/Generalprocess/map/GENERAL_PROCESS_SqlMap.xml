@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="GENERAL_PROCESS_SqlMap" >
+	<resultMap id="omOrganization_result" class="com.gotop.vo.tyjg.Omorganization" >
+    	<!--Bean方式返回全表-->
+    	<result column="ORGID" property="orgid" jdbcType="DECIMAL" />
+    	<result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />
+    	<result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+ 	 </resultMap>
+   <resultMap id="TGeneralProcess_HashMapResult" class="java.util.HashMap" >
+    <!--HashMap方式返回全表-->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <!-- <result column="TASK_ID" property="taskId" jdbcType="VARCHAR" /> -->
+    <result column="PRE_TASK_ID" property="preTaskId" jdbcType="VARCHAR" />
+    <result column="PRE_TASK_ASSINGEE" property="preTaskAssingee" jdbcType="DECIMAL" />
+    <result column="PRE_TASK_ORG" property="preTaskOrg" jdbcType="DECIMAL" />
+    <result column="PRE_TASK_TIME" property="preTaskTime" jdbcType="VARCHAR" />
+    <result column="NEXT_TASK_ID" property="nextTaskId" jdbcType="VARCHAR" />
+     <result column="BUSINESS_KEY" property="businessKey" jdbcType="DECIMAL" />
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+     <result column="preTaskOrgName" property="preTaskOrgName" jdbcType="VARCHAR" />
+      <result column="preTaskAssingeeName" property="preTaskAssingeeName" jdbcType="VARCHAR" />
+      <result column="processName" property="processName" jdbcType="VARCHAR" />
+      <result column="activityName" property="activityName" jdbcType="VARCHAR" />
+      <result column="currentAssingee" property="currentAssingee" jdbcType="VARCHAR"/>
+      <result column="currentActivityName" property="currentActivityName" jdbcType="VARCHAR" />
+       <result column="BUSINESS_TITLE" property="businessTitle" jdbcType="VARCHAR" />
+       <result column="BEGIN_EMPID" property="beginEmpId" jdbcType="VARCHAR" />
+       <result column="BEGIN_ORGID" property="beginOrgId" jdbcType="VARCHAR" />
+       <result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
+       <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+       <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+       <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+       <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+       <result column="beginEmpname" property="beginEmpname" jdbcType="VARCHAR" />
+       <result column="beginOrgname" property="beginOrgname" jdbcType="VARCHAR" />
+       <result column="SUPPORT_CATEGORY" property="supportCategory" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  	
+<resultMap id="TGeneralProcess_HashMapResult2" class="java.util.HashMap" >
+    <result column="EXECUTION_ID" property="executionId" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TITLE" property="businessTitle" jdbcType="VARCHAR" />
+    <result column="BEGINORGNAME" property="beginOrgname" jdbcType="VARCHAR" />
+    <result column="BEGINEMPNAME" property="beginEmpname" jdbcType="VARCHAR" />
+    <result column="CUST_NAME" property="cust_Name" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY" property="oneCategory" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY" property="loanCategory" jdbcType="VARCHAR" />
+    <result column="CURRENCY" property="currency" jdbcType="VARCHAR" />
+    <result column="APPLY_BAL" property="apply_bal" jdbcType="VARCHAR" />
+    <result column="SUPPORT_CATEGORY" property="supportCategory" jdbcType="VARCHAR" />
+    <result column="CURRENTACTIVITYNAME" property="currentActivityName" jdbcType="VARCHAR" />
+    <result column="CURRENTASSINGEE" property="currentAssingee" jdbcType="VARCHAR" />
+    <result column="CURRENTASSINGEEORGNAME" property="currentAssingeeOrgname" jdbcType="VARCHAR" />
+    
+    <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+    <result column="pre_task_id" property="preTaskId" jdbcType="VARCHAR" />
+    <result column="activityName" property="activityName" jdbcType="VARCHAR" />
+    
+    <result column="pre_task_assingee" property="preTaskAssingee" jdbcType="VARCHAR" />
+    <result column="orgCodeOne" property="orgCodeOne" jdbcType="VARCHAR" />
+    <result column="orgCodeTwo" property="orgCodeTwo" jdbcType="VARCHAR" />
+    <result column="fdxdy" property="fdxdy" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="definition_id" property="definition_id" jdbcType="VARCHAR" />
+    <result column="process_name" property="processName" jdbcType="VARCHAR" />
+    <result column="reporttime" property="reporttime" jdbcType="VARCHAR" />
+    <result column="begin_orgid" property="beginEmpId" jdbcType="VARCHAR" />
+    <result column="begin_empid" property="beginOrgId" jdbcType="VARCHAR" />
+    <result column="operator_type" property="operator_type" jdbcType="VARCHAR" />
+    <result column="operater_date" property="operater_date" jdbcType="VARCHAR" />
+    
+    <result column="BASIC_RATE_FLOAT" property="basic_rate_float" jdbcType="VARCHAR" />
+    <result column="RATE_FLOAT_SCALE" property="rate_float_scale" jdbcType="VARCHAR" />
+</resultMap>
+  
+  	<!-- 查询营销人员机构 -->
+  	<select id="queryyxryjg" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
+  	
+  	select h1.orgname as yxryjg
+  from (select t2.empid, t2.orgid
+          from (select * from om_employee t where 1=1
+          <isNotNull prepend="and" property="yxry" >
+          t.empname like  '%'||#yxry:VARCHAR#||'%' 
+          </isNotNull>
+          ) t
+          left join OM_EMPORG t2
+            on t.empid = t2.empid) h
+  left join om_organization h1
+    on h.orgid = h1.orgid
+  	
+  	
+  	
+  	</select>
+  	
+  	<!-- 根据员工号查询出其所属机构名称 -->
+  	<select id="queryOrgName" resultClass="java.util.HashMap" parameterClass="String">
+  		select b.orgname from om_emporg a,om_organization b where a.empid in($empIds$) and b.orgid = a.orgid
+  	</select>
+  	
+  	<select id="isHaveParentOrgId" resultClass="String" parameterClass="java.util.HashMap">
+  		select a.parentorgid
+  from om_organization a
+ where a.orgid =
+       (select t.parentorgid from om_organization t where t.orgcode = #orgcode#)
+  	</select>
+  	
+  	<select id="getParentOrgId" resultMap="omOrganization_result" parameterClass="java.util.HashMap">
+  		select a.orgid,a.orgcode,a.orgname
+  from om_organization a
+ where a.orgid =
+       (select t.parentorgid from om_organization t where t.orgcode = #orgcode#)
+  	</select>
+  
+  	 <select id="queryGeneralprocessList" resultMap="TGeneralProcess_HashMapResult" parameterClass="java.util.HashMap">
+  		SELECT T11.*,v.begin_empid,
+               v.begin_orgid,
+               v.cust_name,
+               v.currency,
+               v.apply_bal/10000 as apply_bal,
+               v.onecategory,
+               v.loancategory,
+               v.support_category,
+                T10.NEXT_ORG_NAME AS preTaskOrgName,
+               v.orgname as beginOrgname,
+               v.empname as beginEmpname FROM 
+               (select *
+  from (select T1.ID,
+               T1.EXECUTION_ID,
+               T1.TASK_ID,
+               T1.PRE_TASK_ID,
+               T1.PRE_TASK_ASSINGEE,
+               T1.PRE_TASK_ORG,
+               T1.PRE_TASK_TIME,
+               T1.NEXT_TASK_ID,
+               T1.BUSINESS_KEY,
+               T3.EMPNAME AS preTaskAssingeeName,
+               t6.process_name AS processName,
+               t9.business_title,
+               t6.business_type,
+               t8.activity_name_ AS activityName,
+               t1.NEXT_ACTIVITY_NAME as currentActivityName,
+               to_char(T8.START_, 'yyyymmddhh24miss') AS startTime,
+               to_char(T8.END_, 'yyyymmddhh24miss') AS endTime,
+               t1.NEXT_ASSINGEE_NAME as currentAssingee,
+               T8.END_,
+               row_number() over(partition by t1.execution_id order by t1.id desc) rn
+          from JBPM4_HIST_PROCINST     t5,
+               T_PROCESS_CONFIG        t6,
+               T_PROCESS_BUSINESS      t9,
+               T_PROCESS_TASK_ASSIGNEE t1,
+               JBPM4_HIST_TASK         t7,
+               om_employee             t3,
+               OM_ORGANIZATION         T4,
+               JBPM4_HIST_ACTINST      t8
+         where t5.procdefid_ = t6.definition_id
+           and t9.execution_id = t5.id_
+           and t1.execution_id = t9.execution_id
+           and t7.execution_ = t1.execution_id
+           and t3.empid = t1.pre_task_assingee
+           AND T9.BUSINESS_TYPE=88
+           and t8.htask_ = t1.pre_task_id
+           <isNotNull prepend="and" property="empId" >
+              t9.submit_id in (
+              select t3.empid　from om_emporg t2,
+                                               om_employee    t3 where t2.empid = t3.empid and t2.orgid in (select orgid
+                                                                                                              from om_organization
+                                                                                                             start with orgid =
+                                                                                                                        (select a1.orgid
+                                                                                                                           from om_organization a1
+                                                                                                                          where a1.orgid =
+                                                                                                                                (select t1.parentorgid 　from om_organization t1,
+                                                                                                                                        om_emporg      t2,
+                                                                                                                                        om_employee    t3 where t1.orgid = t2.orgid and t2.empid = t3.empid and t3.empid = $empId$))
+                                                                                                            connect by prior
+                                                                                                                        orgid =
+                                                                                                                        parentorgid)
+              
+              )
+      		</isNotNull>
+           )
+ where rn = 1
+) T11,V_APP_CONDITION V2,V_GENERALPROCESS_XD V,<!--  (select minoperater_date,o1.flow_id,o1.operator_type,o1.operater_date,o1.next_org_name,o1.node_id
+  from t_approve_opninion_gp o1,
+      (select o.flow_id, min(o.operater_date) as minoperater_date
+         T_APPROVE_OPNINION_GP t10
+          from T_APPROVE_OPNINION_GP o
+         group by o.flow_id) o2
+         where o1.flow_id=o2.flow_id) t10 -->
+         T_APPROVE_OPNINION_GP t10
+ WHERE T11.EXECUTION_ID=V2.execution_id(+)
+ AND T11.EXECUTION_ID=V.flow_id(+) 
+ and t10.flow_id=T11.EXECUTION_ID
+  			<isNotNull prepend="and" property="orgcode" >
+              v.begin_orgid in( select orgid from om_organization 
+     			start with orgcode = #orgcode#
+    			connect by prior orgid = parentorgid)
+      		</isNotNull>
+           <isNotNull prepend="and" property="appTimeStrat" >
+           	<![CDATA[
+           		T11.EXECUTION_ID in(select t12.flow_id from T_APPROVE_OPNINION_GP t12 where 
+           		t12.operator_type='提交发起合同预审' 
+           		and t12.operater_date>='$appTimeStrat$')
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="appTimeEnd" >
+           	<![CDATA[
+            	T11.EXECUTION_ID in(select t12.flow_id from T_APPROVE_OPNINION_GP t12 where 
+           		t12.operator_type='提交发起合同预审' 
+           		and t12.operater_date<='$appTimeEnd$')
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="reporttimeStrat" >
+           	 <![CDATA[
+            	v.reporttime>='$reporttimeStrat$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="reporttimeEnd" >
+           	<![CDATA[
+            	v.reporttime<='$reporttimeEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="orgCodeOne" >
+           	v.orgCodeOne='$orgCodeOne$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="orgCodeTwo" >
+           	v.orgCodeTwo='$orgCodeTwo$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="cust_Name" >
+           	v.cust_Name like '%'||'$cust_Name$'||'%'
+      		</isNotNull>
+           <isNotNull prepend="and" property="isEnd" >
+           	<isEqual property="isEnd" compareValue="0">
+           	    t11.currentActivityName!='结束'
+           	</isEqual>
+           	<isEqual property="isEnd" compareValue="1">
+           	    t11.currentActivityName='结束'
+           	</isEqual>
+      		</isNotNull>
+           <isNotNull prepend="and" property="creator" >
+           	v.creator='$creator$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="fdxdy" >
+           	v.fdxdy='$fdxdy$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="supportCategory" >
+           v.support_category in($supportCategory$)
+      		</isNotNull>
+           <isNotNull prepend="and" property="oneCategory" >
+           	 v.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
+           	 and dic.dictid in($oneCategory$))
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory" >
+           	 v.loancategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
+           	 and dic.dictid in($loanCategory$))
+      		</isNotNull>
+		<isNotNull prepend="and" property="dyApp" >
+           	v2.sp1='$dyApp$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="deApp" >
+           	v2.sp2='$dyApp$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="dyCheck" >
+           v2.sc1='$dyCheck$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="deCheck" >
+           	v2.sc2='$deCheck$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="processName" >
+           t11.processName like '%'||'$processName$'||'%'
+      		</isNotNull>
+          <!--  <isNotNull prepend="and" property="minoperaterDateEnd" >
+               <![CDATA[
+            	 	t10.minoperater_date<='$minoperaterDateEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="minoperaterDateStrat" >
+           	<![CDATA[
+            	 	t10.minoperater_date>='$minoperaterDateStrat$'
+               ]]>
+      		</isNotNull> -->
+  and (t10.node_id=t11.next_task_id or t10.node_id is null )
+  order by END_ desc
+  	</select> 
+  	
+  	
+  	
+  	  <!-- 信贷流程查询 将t_process_business作为查询主表 -->
+  <select id="queryGeneralprocessList2" resultMap="TGeneralProcess_HashMapResult2" parameterClass="java.util.HashMap">
+with temp as /* temp：查出每个流程节点的操作人员 */
+(select ac.*, ap.task_assignee_id as activity_empid, emp.empname as activity_empname
+            from JBPM4_HIST_ACTINST      ac,
+                 T_PROCESS_TASK_ASSIGNEE_PERSON ap,
+                 om_employee emp
+           where ac.execution_ = ap.execution_id
+             and ac.htask_ = ap.task_id
+             and ap.task_assignee_id = emp.empid ),
+             
+temp1  as  /* temp1：查出每个流程第一次执行“审查一”的员工 */           
+ (select execution_, activity_empname as fir_sc_empname
+   from (select temp.*, row_number() over(partition by execution_ order by start_) as rn
+           from temp               
+          where temp.activity_name_ = '审查一')
+  where rn = 1),
+  
+  temp2  as   /* temp2：查出每个流程第二次执行“审查一”的员工 */        
+ (select execution_, activity_empname as sec_sc_empname
+   from (select temp.*, row_number() over(partition by execution_ order by start_) as rn
+           from temp               
+          where temp.activity_name_ = '审查一')
+  where rn = 2),
+  
+  temp3  as   /* temp3：查出每个流程第一次执行“审批一”的员工 */        
+ (select execution_, activity_empname as fir_sp_empname
+   from (select temp.*, row_number() over(partition by execution_ order by start_) as rn
+           from temp               
+          where temp.activity_name_ = '审批一')
+  where rn = 1),
+  
+  temp4 as   /* temp4：查出每个流程第二次执行“审批一”的员工 */         
+ (select execution_, activity_empname as sec_sp_empname
+   from (select temp.*, row_number() over(partition by execution_ order by start_) as rn
+           from temp               
+          where temp.activity_name_ = '审批一')
+  where rn = 2),
+
+tempT as /* 列出每个流程的 第一次操作审查一的人、第二次操作审查一的人、第一次操作审批一的人、第二次操作审批一的人 */
+(select T.execution_, temp1.fir_sc_empname, temp2.sec_sc_empname, temp3.fir_sp_empname, temp4.sec_sp_empname  from  
+  (select execution_ from JBPM4_HIST_ACTINST group by execution_) T, temp1, temp2, temp3, temp4 
+  where T.execution_ = temp1.execution_(+) and T.execution_ = temp2.execution_(+)
+    and T.execution_ = temp3.execution_(+) and T.execution_ = temp4.execution_(+) 
+)
+
+SELECT t17.*,  t18.reporttime, tempT.fir_sc_empname, tempT.sec_sc_empname, tempT.fir_sp_empname, tempT.sec_sp_empname
+FROM
+  (SELECT t15.*,
+          t16.process_name
+   FROM
+     (SELECT t13.*,
+             t14.procdefid_ AS definition_id
+      FROM
+        (SELECT t11.*,
+                t12.activity_name_ AS activityName
+         FROM
+           (SELECT t9.*,
+                   t10.next_opr_name AS currentAssingee,
+                   t10.next_org_name AS currentAssingeeOrgname,
+                   t10.operator_type,
+                   t10.operater_date
+            FROM
+              (SELECT t7.*,
+                      t8.pre_task_id,
+                      t8.pre_task_assingee,
+                      t8.next_activity_name AS currentActivityName
+               FROM
+                 (SELECT t5.*,
+                         t6.support_category
+                  FROM
+                    (SELECT t3.*,
+                            t4.cust_name,
+                            t4.onecategory,
+                            t4.loancategory,
+                             t4.basic_rate_float, 
+                            t4.rate_float_scale,
+                            case
+				               when t4.basic_rate_float='0' then 0 
+				               when t4.basic_rate_float='1' then abs(replace(t4.rate_float_scale,'%',''))
+				               when t4.basic_rate_float='2' then -1*abs(replace(t4.rate_float_scale,'%',''))
+				             end as basic_rate,
+                            t4.currency,
+                            t4.apply_bal/10000 AS apply_bal,
+                            t4.orgcodeOne,
+                            t4.orgcodeTwo,
+                            t4.creator,
+                            t4.fdxdy
+                     FROM
+                       (SELECT t1.*,
+                               t2.begin_orgid,
+                               t2.begin_empid,
+                               t2.orgname AS beginOrgname,
+                               t2.empname AS beginEmpname
+                        FROM (/* t_process_business为查询主表,查询流程id、标题， 业务类型 */
+                              SELECT execution_id,
+                                     business_title,
+                                     business_type
+                              FROM t_process_business
+                              WHERE business_type = '88') t1
+                        LEFT JOIN (/* 1.查询（流程发起人）客户经理empname 以及 (发起机构)所在机构名称orgname*/
+                                   SELECT t.business_id,
+                                          t.begin_orgid,
+                                          t.begin_empid,
+                                          o.orgname,
+                                          e.empname
+                                   FROM T_GENERALPROCESS_MAIN t,
+                                        om_organization o,
+                                        om_employee e
+                                   WHERE t.begin_orgid = o.orgid
+                                     AND t.begin_empid = e.empid) t2 ON t1.execution_id = t2.business_id) t3
+                     LEFT JOIN (/* 2.查询客户名称、一级分类、贷种分类、币种、申请金额 */
+                           select os.flow_id, 
+                           			max(os.cust_name) as cust_name, 
+                           			max(os.onecategory) as onecategory, 
+                           			max(os.loancategory) as loancategory,
+                           			max(os.basic_rate_float) as basic_rate_float,
+                           			max(os.rate_float_scale) as rate_float_scale,
+                               		max(os.currency) as currency, 
+                               		max(os.apply_bal) as apply_bal, 
+                               		max(os.orgcodeOne) as orgcodeOne, 
+                               		max(os.orgcodeTwo) as orgcodeTwo,
+                               		max(os.fdxdy) as fdxdy, 
+                               		max(os.creator) as creator
+                           from  (SELECT decode(g1.flow_id, NULL, g6.flow_id, g1.flow_id) AS flow_id,
+                                       decode(g1.cust_name, NULL, g6.cust_name, g1.cust_name) AS cust_name,
+                                       decode(g1.onecategory, NULL, g6.onecategory, g1.onecategory) AS onecategory,
+                                       decode(g1.loancategory, NULL, g6.loancategory, g1.loancategory) AS loancategory,
+                                       decode(g1.basic_rate_float, NULL, g6.basic_rate_float, g1.basic_rate_float) AS basic_rate_float,
+                                       decode(g1.rate_float_scale, NULL, g6.rate_float_scale, g1.rate_float_scale) AS rate_float_scale,
+                                       decode(g1.currency, NULL, g6.support_moneytype, g1.currency) AS currency,
+                                       decode(g1.apply_bal, NULL, g6.support_money, g1.apply_bal) AS apply_bal,
+                                       g1.orgcodeOne,
+                                       g1.orgcodeTwo,
+                                       g1.fdxdy,
+                                       g1.empname as creator
+                                FROM (select m.*, e.empname  from t_generalprocess_modelone m, om_employee e 
+                                			 where m.creator = e.empid
+                                )g1 full join  t_generalprocess_modelsix g6
+                                on g1.flow_id = g6.flow_id) os group by os.flow_id) t4 ON t3.execution_id = t4.flow_id) t5
+                  LEFT JOIN /* 3.查询 支用类别 */ t_generalprocess_modelsix t6 ON t5.execution_id = t6.flow_id) t7
+               LEFT JOIN (/* 4.查询 当前节点名称next_activity_name，pre_task_id为上个节点id */
+                          SELECT *
+                          FROM
+                            (SELECT execution_id,
+                                    pre_task_id,
+                                    pre_task_assingee,
+                                    next_activity_name,
+                                    row_number() over(partition BY execution_id
+                                                      ORDER BY pre_task_time DESC) AS rn
+                             FROM t_Process_Task_Assignee
+                             WHERE business_type = '88')
+                          WHERE rn = 1) t8 ON t7.execution_id = t8.execution_id) t9
+            LEFT JOIN (/* 5.查询 当前节点办理人next_opr_name、当前处理人机构next_org_name */
+                       SELECT *
+                       FROM
+                         (SELECT flow_id,
+                                 next_opr_name,
+                                 next_org_name,
+                                 operator_type,
+                                 operater_date,
+                                 row_number() over(partition BY flow_id
+                                                   ORDER BY task_time DESC) AS rn
+                          FROM
+                            (SELECT gp.*,
+                                    (operater_date || operater_time) AS task_time
+                             FROM T_APPROVE_OPNINION_GP gp)
+                          WHERE resource_type = '88')
+                       WHERE rn = 1) t10 ON t9.execution_id = t10.flow_id ) t11
+         LEFT JOIN /*查找 上个节点名称 activity_name_*/ JBPM4_HIST_ACTINST t12 ON t11.pre_task_id = t12.htask_) t13
+      LEFT JOIN /*查找 对应的流程模板id definition_id */ JBPM4_HIST_PROCINST t14 ON t13.execution_id = t14.id_) t15
+   , /*查找 流程名称process_name */ T_PROCESS_CONFIG t16 
+   where t15.definition_id = t16.definition_id and t16.state='01' ) t17
+   ,/*查找 上报时间reporttime */ t_generalprocess_modelthree t18 , tempT
+ 
+ WHERE t17.execution_id = t18.flow_id(+)
+and t17.execution_id = tempT.execution_(+)                      
+and  beginOrgname is not null 
+	and beginEmpname is not null 
+	and cust_name is not null
+ <isNotNull property="orgid" >
+ 		<isEqual  prepend="and" property="org_flag"  compareValue="1" >
+ 		t17.begin_orgid in (
+ 		select orgid from  om_organization 
+     			start with orgid = $orgid$
+    			connect by prior orgid = parentorgid )
+ 		</isEqual>
+ 		<isEqual  prepend="and" property="org_flag"  compareValue="2" >
+ 		t17.begin_orgid in (
+ 		select orgid  from  om_organization 
+     			start with orgid = (select parentorgid from om_organization where orgid = $orgid$)
+    			connect by prior orgid = parentorgid )
+ 		</isEqual>
+ </isNotNull>
+ <isNotNull prepend="and" property="appTimeStrat" >
+           	<![CDATA[
+           		t17.operator_type = '提交发起合同预审' 
+           		and t17.operater_date >= '$appTimeStrat$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="appTimeEnd" >
+           	<![CDATA[
+            	t17.operator_type = '提交发起合同预审' 
+           		and t17.operater_date <= '$appTimeEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="reporttimeStrat" >
+           	 <![CDATA[
+            	t18.reporttime>='$reporttimeStrat$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="reporttimeEnd" >
+           	<![CDATA[
+            	t18.reporttime<='$reporttimeEnd$'
+               ]]>
+      		</isNotNull>
+           <isNotNull prepend="and" property="orgCodeOne" >
+           	t17.orgCodeOne='$orgCodeOne$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="orgCodeTwo" >
+           	t17.orgCodeTwo='$orgCodeTwo$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="cust_Name" >
+           	t17.cust_Name like '%'||'$cust_Name$'||'%'
+      		</isNotNull>
+           <isNotNull prepend="and" property="isEnd" >
+           	<isEqual property="isEnd" compareValue="0">
+           		<![CDATA[
+           	   t17.currentActivityName <> '结束'
+           	     ]]>
+           	</isEqual>
+           	<isEqual property="isEnd" compareValue="1">
+           	    t17.currentActivityName = '结束'
+           	</isEqual>
+      		</isNotNull>
+           <isNotNull prepend="and" property="creator" >
+           	t17.creator='$creator$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="fdxdy" >
+           	t17.fdxdy='$fdxdy$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="supportCategory" >
+           t17.support_category in($supportCategory$)
+      		</isNotNull>
+           <isNotNull prepend="and" property="oneCategory" >
+           	 t17.onecategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_onecategory' 
+           	 and dic.dictid in($oneCategory$))
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory" >
+           	 t17.loancategory in(select dic.dictname from eos_dict_entry dic where dic.dicttypeid='PROCESS_credit_type' 
+           	 and dic.dictid in($loanCategory$))
+      		</isNotNull>
+		
+         <!--   <isNotNull prepend="and" property="dyCheck" >
+           t17.activityName = '审查一' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$dyCheck$')
+      		</isNotNull>
+           <isNotNull prepend="and" property="deCheck" >
+           	 t17.activityName = '审查二' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$deCheck$')
+      		</isNotNull>
+      		<isNotNull prepend="and" property="dyApp" >
+			t17.activityName = '审批一' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$dyApp$')
+      		</isNotNull>
+           <isNotNull prepend="and" property="deApp" >
+           t17.activityName = '审批二' 
+			and t17.pre_task_assingee in (select empid from om_employee where empname = '$deApp$')
+      		</isNotNull> -->
+      		
+      		<isNotNull prepend="and" property="dyCheck" >
+           tempT.fir_sc_empname =  '$dyCheck$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="deCheck" >
+           	 tempT.sec_sc_empname = '$deCheck$'
+      		</isNotNull>
+      		<isNotNull prepend="and" property="dyApp" >
+			 tempT.fir_sp_empname = '$dyApp$'
+      		</isNotNull>
+           <isNotNull prepend="and" property="deApp" >
+            tempT.sec_sp_empname = '$deApp$'
+      		</isNotNull> 
+      		
+           <isNotNull prepend="and" property="processName" >
+           t17.process_name like '%'||'$processName$'||'%'
+      		</isNotNull>
+      		<isNotNull prepend="and" property="rate_min" >
+			t17.basic_rate >= $rate_min$
+      		</isNotNull>
+      		<isNotNull prepend="and" property="rate_max" >
+			<![CDATA[   t17.basic_rate <= $rate_max$  ]]>
+      		</isNotNull>
+      	order by case t17.currentactivityName when '结束' then 1 else 0 end
+  </select>
+  
+  <!-- 查询当前登录的机构是否属于 一类支行（5478）的本级及下级机构 -->
+  	<select id="isOneOrg" resultClass="com.gotop.vo.tyjg.Omorganization" parameterClass="java.util.HashMap">
+select orgid, orgcode, orgname, parentorgid from (
+select * from om_organization 
+     			start with orgid = 5478
+    			connect by prior orgid = parentorgid)
+ where orgid = #orgid#
+  	</select>	
+  	
+  	<select id="queryBackoverTaskIsSave" resultClass="java.util.HashMap"  parameterClass="java.util.HashMap">
+  	select * from t_model_backoverTaskIsSave 
+	where flow_id = '$flow_id$' 
+		and taskname = '$taskname$'
+  	</select>
+  	
+  	<insert id="insertBackoverTaskIsSave"  parameterClass="java.util.HashMap">
+  		<selectKey resultClass="long" keyProperty="id">
+  			select seq_t_model_backoverTaskIsSave.Nextval from dual
+  		</selectKey>
+  	insert into t_model_backoverTaskIsSave(ID, FLOW_ID, TASKNAME, FLAG)
+  	values('$id$', '$flow_id$', '$taskname$', '$flag$')
+  	</insert>
+  	
+  	<update id="uptBackoverTaskIsSave"  parameterClass="java.util.HashMap">
+  	update t_model_backoverTaskIsSave
+  	set flag = '$flag$'
+  	where flow_id = '$flow_id$' 
+		and taskname = '$taskname$'
+  	</update>
+</sqlMap>

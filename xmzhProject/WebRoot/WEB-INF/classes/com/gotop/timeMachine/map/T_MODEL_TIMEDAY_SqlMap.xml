@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="T_MODEL_TIMEDAY_SqlMap" >
+  <resultMap id="workDay_Result" class="com.gotop.timeMachine.model.TModelTimeday" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+    <result column="EMPNAME" property="empname" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="workDay_Result2" class="com.gotop.timeMachine.model.TModelTimeday" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+     <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="ORGCODE" property="orgcode" jdbcType="VARCHAR" />
+    <result column="EMPID" property="empid" jdbcType="VARCHAR" />
+     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="XdproForEnd_Result" class="com.gotop.timeMachine.model.XdproForEnd" >
+    <result column="FLOW_ID" property="flow_id" jdbcType="VARCHAR" />
+    <result column="DEFINITION_ID" property="definition_id" jdbcType="VARCHAR" />
+    <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="HistActinst_Result" class="com.gotop.timeMachine.model.HistActinst" >
+    <result column="DBID_" property="dbid" jdbcType="DECIMAL" />
+    <result column="TYPE_" property="type" jdbcType="VARCHAR" />
+    <result column="EXECUTION_" property="execution" jdbcType="VARCHAR" /> 
+    <result column="ACTIVITY_NAME_" property="activity_name" jdbcType="VARCHAR" />
+    <result column="START_" property="start" jdbcType="VARCHAR" />
+    <result column="END_" property="end" jdbcType="VARCHAR" />
+    <result column="TRANSITION_" property="transition" jdbcType="VARCHAR" />
+    <result column="HTASK_" property="htask" jdbcType="DECIMAL" />
+    <result column="RN" property="rn" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="ProTimeModel_Result" class="com.gotop.jbpm.model.ProTimeModelBean" >
+    <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="NodeTimeLimit_Result" class="com.gotop.jbpm.model.NodeTimeLimitBean" >
+    <result column="E_ID" property="e_id" jdbcType="DECIMAL" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="TIMELIMIT" property="timeLimit" jdbcType="DOUBLE" />
+    <result column="TWOTIMELIMIT" property="twotimeLimit" jdbcType="DOUBLE" />
+    <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
+    <result column="OP_EMPID" property="op_empid" jdbcType="DECIMAL" />
+    <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
+    <result column="OP_TIME" property="op_time" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="OverTimeReport_Result" class="com.gotop.timeMachine.model.OverTimeReport" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="REPORTTIME" property="reportTime" jdbcType="VARCHAR" />
+    <result column="PROCESS_NAME" property="process_name" jdbcType="VARCHAR" />
+    <result column="CUSTNAME" property="custName" jdbcType="VARCHAR" />
+    <result column="ORGNAME_ONE" property="orgname_one" jdbcType="VARCHAR" />
+    <result column="ORGNAME_TWO" property="orgname_two" jdbcType="VARCHAR" />
+    <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
+    <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="EMPNAME" property="empname" jdbcType="VARCHAR" />
+    <result column="OVERTIME" property="overtime" jdbcType="DECIMAL" />
+    <result column="STARTTIME" property="starttime" jdbcType="VARCHAR" />
+    <result column="ENDTIME" property="endtime" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="REQUEST_ID" property="request_id" jdbcType="DECIMAL" />
+    <result column="RN" property="overcount" jdbcType="VARCHAR" />
+  </resultMap>
+
+ <resultMap id="workTimeMain_Result" class="com.gotop.jbpm.model.WorkTimeMainBean" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="STARTDATE" property="startDate" jdbcType="VARCHAR" />
+     <result column="ENDDATE" property="endDate" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="workTimeSide_Result" class="com.gotop.jbpm.model.WorkTimeSideBean" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+        <result column="MAINID" property="mainID" jdbcType="DECIMAL" />
+     <result column="TIMETYPE" property="timeType" jdbcType="VARCHAR" />
+     <result column="STARTTIME" property="startTime" jdbcType="VARCHAR" />
+     <result column="ENDTIME" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="listNodName_result" class="com.gotop.timeMachine.model.OverTimeReport" >
+    <result column="ACTIVITY_NAME" property="taskName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!-- 分页查询工作日列表  T_MODEL_TIMEDAY-->
+  <select id="queryWorkDayListWithPage" resultMap="workDay_Result" parameterClass="java.util.HashMap" >
+    select t1.*, t2.orgname, t3.empname
+    from T_MODEL_TIMEDAY t1, om_organization t2, om_employee t3
+    where t1.orgcode = t2.orgcode
+  	 and t1.empid = t3.empid
+   <isNotNull prepend="and" property="startDate" >
+	t1.time >= '$startDate$'
+	</isNotNull>
+	<isNotNull prepend="and" property="endDate" >
+	<![CDATA[  t1.time <= '$endDate$' ]]>
+	</isNotNull>
+   order by t1.time
+  </select>
+  
+  <!-- 查询在传入日期范围之间的节假日、工作日 T_MODEL_TIMEDAY-->
+  <select id="queryWorkDayList" resultMap="workDay_Result2"  parameterClass="java.util.HashMap">
+    select t1.* from T_MODEL_TIMEDAY t1  
+    where t1.status = '0'
+       and t1.time >= '$startD$'
+ <![CDATA[    and t1.time <= '$endD$'   ]]>
+    order by t1.time
+  </select>
+  
+  <!-- 校验 非工作日是否已存在 -->
+  <select id="checkDayTime" resultMap="workDay_Result2" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
+    select t1.*
+    from T_MODEL_TIMEDAY t1
+    where  t1.time = #time:VARCHAR#
+    <![CDATA[  and t1.id <> #id:DECIMAL:-9999#  ]]>
+  </select>
+  
+  <!-- 插入 一条 非工作日记录 -->
+  <insert id="insertWorkDay"  parameterClass="com.gotop.timeMachine.model.TModelTimeday"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT SEQ_T_MODEL_TIMEDAY.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into T_MODEL_TIMEDAY(ID, TYPE, TIME, STATUS, REMARK, ORGCODE, EMPID )
+    values (#id:DECIMAL:-9999#, #type:VARCHAR#, trim(#time:VARCHAR#), #status:VARCHAR#, #remark:VARCHAR#, #orgcode:VARCHAR#, #empid:VARCHAR#)
+  </insert>
+  
+  <!-- 修改 非工作日  -->
+  <update id="updateWorkDayById" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
+    update T_MODEL_TIMEDAY t
+    set t.type = #type:VARCHAR#,
+    	t.time = #time:VARCHAR#,
+    	t.remark = #remark:VARCHAR#,
+    	t.status = #status:VARCHAR#,
+    	t.orgcode = #orgcode:VARCHAR#,
+    	t.empid = #empid:VARCHAR#
+    where t.id = #id:DECIMAL:-9999# 
+  </update>
+  
+  <!-- 删除 非工作日 记录 -->
+  <delete id="delWorkDayById" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
+    delete from T_MODEL_TIMEDAY t
+    where t.id = #id:DECIMAL:-9999# 
+  </delete>
+  
+  <select id="queryWorkDayById" resultMap="workDay_Result2" parameterClass="com.gotop.timeMachine.model.TModelTimeday" >
+    select t1.ID, t1.TYPE, to_char( to_date(t1.TIME, 'yyyy/MM/dd') ,'yyyy-MM-dd' ) as time, t1.REMARK, t1.STATUS, t1.ORGCODE, t1.EMPID
+    from T_MODEL_TIMEDAY t1
+    where t1.id = #id:DECIMAL:-9999#
+  </select>
+  
+ <!--  查询出所有的信贷流程，当前节点必须为“结束 -->
+  <select id="queryXdproForEnd" resultMap="XdproForEnd_Result" >
+    select t5.execution_id as flow_id, t5.procdefid_ as definition_id, t6.process_name
+  from (select t3.*, t4.procdefid_ 
+          from (select t2.*
+                  from (select t.*,
+                               row_number() over(partition by t.execution_id order by t.id desc) as rn
+                          from T_PROCESS_TASK_ASSIGNEE t) t2
+                 where t2.rn = 1
+                   and t2.next_activity_name = '结束') t3,
+               JBPM4_HIST_PROCINST t4
+         where t3.execution_id = t4.id_) t5, T_PROCESS_CONFIG t6
+  where t5.procdefid_ = t6.definition_id
+ and t6.business_type = '88'
+ order by t5.execution_id
+  </select>
+  
+  <!-- 查询信贷流程走过的所有节点 -->
+  <select id="queryHistActinst" resultMap="HistActinst_Result" parameterClass="java.util.HashMap" >
+    select t.DBID_, t.TYPE_, t.EXECUTION_, t.ACTIVITY_NAME_, 
+   to_char(t.START_, 'yyyymmddhh24miss') AS START_,
+   to_char(t.END_, 'yyyymmddhh24miss') AS END_,
+    t.TRANSITION_, t.HTASK_,
+    row_number() over(partition by t.ACTIVITY_NAME_ order by t.START_ asc) as rn
+    from JBPM4_HIST_ACTINST t  
+	where t.execution_= '$flow_id$'
+  </select> 
+  
+  <!-- 查询信贷流程 时限配置 的C_ID -->
+  <select id="queryLoanModel" resultMap="ProTimeModel_Result" parameterClass="java.util.HashMap" >
+ select C_ID
+  from t_model_proLoanTimeLimit
+ where definition_id = '$definition_id$'
+   and D_ID = (select D_ID
+                 from t_model_oneAndLoanCategory
+                where oneCategory_name = '$oneCategory_name$'
+                  and loanCategory_name = '$loanCategory_name$')
+  </select> 
+  
+   <!-- 查询信贷流程 节点时限 -->
+  <select id="queryNodeTimeLimit" resultMap="NodeTimeLimit_Result" parameterClass="java.util.HashMap" >
+ select * from t_model_nodeTimeLimit
+where c_id = '$c_id$'
+and taskname = '$activity_name$'
+  </select> 
+  
+   <!-- 查询超限 员工名-->
+  <select id="queryOperatorname" resultClass="java.lang.String" parameterClass="java.util.HashMap" >
+select operatorname from ac_operator where operatorid =
+	(select assignee_ from  JBPM4_HIST_TASK where dbid_= '$htask$')
+  </select> 
+  
+  <!-- 插入 超限时间报表 的临时表 里 -->
+  <insert id="insertOverTime"  parameterClass="com.gotop.timeMachine.model.OverTimeReport"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT SEQ_T_MODEL_OVERTIMEREPORT.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_overtimeReport
+    (ID, REPORTTIME, TASKNAME, CUSTNAME, ONECATEGORY_NAME, 
+    LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, 
+    REQUEST_ID, PROCESS_NAME, FLOW_ID, STARTTIME, ENDTIME,
+    TIMELIMITONE, TIMELIMITTWO, RN,  EXPENDTIME, ORGNAME_ONE, ORGNAME_TWO)
+    
+    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#,  #oneCategory_name:VARCHAR#, 
+    #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, 
+    #request_id:DECIMAL:-9999#, #process_name:VARCHAR#, #flow_id:VARCHAR#, #starttime:VARCHAR#, #endtime:VARCHAR#, 
+    #timeLimitOne:DOUBLE#, #timeLimitTwo:DOUBLE#, #rn:DECIMAL:-9999#, #expendtime:DOUBLE#, #orgname_one:VARCHAR#, #orgname_two:VARCHAR#)
+  </insert>
+  
+   <!-- 查询 自增序列 用于 action请求标识-->
+   <select id="queryRequestId" resultClass="java.lang.Long"  >
+		SELECT SEQ_T_MODEL_REQUESTID.NEXTVAL AS request_id FROM DUAL
+</select> 
+
+<!-- 查询 超限报表 临时表(已结束的流程)-->
+  <select id="queryOverTimeReport" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
+    
+	select ID, REPORTTIME ,TASKNAME, CUSTNAME, ONECATEGORY_NAME,LOANCATEGORY_NAME, RN,
+		ORGNAME_ONE, ORGNAME_TWO, EMPNAME, trunc(OVERTIME, 2) as OVERTIME, 
+		REMARK, REQUEST_ID, PROCESS_NAME, 
+		to_char(to_date(STARTTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as STARTTIME, 
+		to_char(to_date(ENDTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as ENDTIME
+
+	from t_model_overtimeReport
+	where request_id = (
+		select max(request_id)
+  from (select request_id
+          from t_model_overtimeReport
+         where end_status = 'T'
+         group by request_id)
+	)
+	<isNotNull prepend="and" property="reportStarttime" >
+		reportTime >= '$reportStarttime$'
+	</isNotNull>
+	<isNotNull prepend="and" property="reportEndtime" >
+		<![CDATA[  reportTime <= '$reportEndtime$' ]]>
+	</isNotNull>
+	
+	<isNotNull prepend="and" property="custName" >
+		custName like '%' || trim('$custName$') ||'%'
+	</isNotNull>
+	<isNotNull prepend="and" property="empname" >
+		empname like '%' || trim('$empname$') ||'%'
+	</isNotNull>
+	<isNotNull prepend="and" property="taskName" >
+		taskName in ($taskName$)
+	</isNotNull>
+	<isEqual prepend="and"  property="overcount"  compareValue="1">
+		rn = 1
+	</isEqual>
+	<isEqual prepend="and"  property="overcount"  compareValue="2">
+		rn >= 2
+	</isEqual>
+	order by REPORTTIME, PROCESS_NAME, CUSTNAME, STARTTIME, ENDTIME
+  </select> 
+  
+  <!-- 删除 超限报表 临时表-->
+  <delete id="deleteOverTimeReport" parameterClass="com.gotop.timeMachine.model.OverTimeReport" >
+	delete from t_model_overtimeReport
+	where request_id = #request_id:DECIMAL:-9999#
+  </delete> 
+
+<!-- 查询工作日维护 表-->
+  <select id="queryWorkTimeMain" resultMap="workTimeMain_Result" >
+	select id, 
+		to_char(startDate, 'yyyyMMdd') as startDate, 
+		to_char(endDate, 'yyyyMMdd') as endDate 
+	from t_model_timeMain
+	where delState = '0'
+	order by startDate
+  </select> 
+  
+  <!-- 查询工作时间维护 表-->
+  <select id="queryWorkTimeSide" resultMap="workTimeSide_Result"   parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+	select * from t_model_timeSide
+	where mainID = '$id$'
+	order by startTime
+  </select> 
+  
+  <!-- 修改 超限报表的自动调度的状态和时间  -->
+  <update id="updateOverTime"  parameterClass="com.gotop.timeMachine.model.OverTimeReport">
+    update t_model_overtimeReport t
+    set t.end_status = 'T',
+    t.HANDLE_TIME = sysdate
+    where t.request_id = #request_id:DECIMAL:-9999#
+  </update>
+  
+  <!-- 查询超限报表的更新时间-->
+  <select id="queryReportUpdatetime" resultClass="java.lang.String"   >
+	 select to_char(max(handle_time), 'yyyy/MM/dd hh24:mi:ss') as update_time
+   from (select *
+           from t_model_overtimeReport
+          where request_id = (select max(request_id)
+                                from (select request_id
+                                        from t_model_overtimeReport
+                                       where end_status = 'T'
+                                       group by request_id)))
+  </select> 
+ 
+ <!-- 查询所有信贷流程配置的节点，首字母拼音排序 --> 
+  <select id="listNodName"  resultMap="listNodName_result">
+ SELECT DISTINCT ACTIVITY_NAME FROM t_process_task_exe_config t1
+where DEFINITION_ID in (
+    SELECT DEFINITION_ID FROM T_PROCESS_CONFIG t2 where business_type='88' and t2.state='01'
+)  order by nlssort(ACTIVITY_NAME,'NLS_SORT=SCHINESE_PINYIN_M')
+	</select>
+  
+  <!--  查询出所有 未结束 的信贷流程 -->
+  <select id="queryXdproForNotEnd" resultMap="XdproForEnd_Result" >
+  <![CDATA[
+    select t5.execution_id as flow_id, t5.procdefid_ as definition_id, t6.process_name
+  from (select t3.*, t4.procdefid_ 
+          from (select t2.*
+                  from (select t.*,
+                               row_number() over(partition by t.execution_id order by t.id desc) as rn
+                          from T_PROCESS_TASK_ASSIGNEE t) t2
+                 where t2.rn = 1
+                   and t2.next_activity_name <> '结束') t3,
+               JBPM4_HIST_PROCINST t4
+         where t3.execution_id = t4.id_) t5, T_PROCESS_CONFIG t6
+  where t5.procdefid_ = t6.definition_id
+ and t6.business_type = '88'
+ order by t5.execution_id
+ ]]>
+  </select>
+  
+  <!-- 查询 超限报表 临时表(未结束的流程)-->
+  <select id="queryOverTimeReportNotEnd" resultMap="OverTimeReport_Result" parameterClass="java.util.HashMap" >
+    
+	select ID, REPORTTIME ,TASKNAME, CUSTNAME, ONECATEGORY_NAME,LOANCATEGORY_NAME, RN,
+		ORGNAME_ONE, ORGNAME_TWO, EMPNAME, trunc(OVERTIME, 2) as OVERTIME, 
+		REMARK, REQUEST_ID, PROCESS_NAME, 
+		to_char(to_date(STARTTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as STARTTIME, 
+		to_char(to_date(ENDTIME, 'yyyyMMddhh24miss') , 'yyyy-MM-dd hh24:mi:ss') as ENDTIME
+
+	from t_model_overtimeReportNotEnd
+	where request_id = '$request_id$'
+	<isNotNull prepend="and" property="reportStarttime" >
+		reportTime >= '$reportStarttime$'
+	</isNotNull>
+	<isNotNull prepend="and" property="reportEndtime" >
+		<![CDATA[  reportTime <= '$reportEndtime$' ]]>
+	</isNotNull>
+	
+	<isNotNull prepend="and" property="custName" >
+		custName like '%' || trim('$custName$') ||'%'
+	</isNotNull>
+	<isNotNull prepend="and" property="empname" >
+		empname like '%' || trim('$empname$') ||'%'
+	</isNotNull>
+	<isNotNull prepend="and" property="taskName" >
+		taskName in ($taskName$)
+	</isNotNull>
+	order by REPORTTIME, PROCESS_NAME, CUSTNAME, STARTTIME, ENDTIME
+  </select> 
+  
+  <!-- 插入 超限时间报表 的临时表 里(未结束流程临时表里) -->
+  <insert id="insertOverTimeNotEnd"  parameterClass="com.gotop.timeMachine.model.OverTimeReport"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT SEQ_T_MODEL_OVERTIMENOTEND.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_overtimeReportNotEnd
+    (ID, REPORTTIME, TASKNAME, CUSTNAME, ONECATEGORY_NAME, 
+    LOANCATEGORY_NAME, ORGNAME, EMPNAME, OVERTIME, REMARK, 
+    REQUEST_ID, PROCESS_NAME, FLOW_ID, STARTTIME, ENDTIME,
+    TIMELIMITONE, TIMELIMITTWO, RN,  EXPENDTIME, ORGNAME_ONE, ORGNAME_TWO)
+    
+    values (#id:DECIMAL:-9999#, #reportTime:VARCHAR#, #taskName:VARCHAR#, #custName:VARCHAR#,  #oneCategory_name:VARCHAR#, 
+    #loanCategory_name:VARCHAR#, #orgname:VARCHAR#, #empname:VARCHAR#, #overtime:DOUBLE#, #remark:VARCHAR#, 
+    #request_id:DECIMAL:-9999#, #process_name:VARCHAR#, #flow_id:VARCHAR#, #starttime:VARCHAR#, #endtime:VARCHAR#, 
+    #timeLimitOne:DOUBLE#, #timeLimitTwo:DOUBLE#, #rn:DECIMAL:-9999#, #expendtime:DOUBLE#, #orgname_one:VARCHAR#, #orgname_two:VARCHAR#)
+  </insert>
+  
+  <!-- 删除 超限报表 临时表-->
+  <delete id="deleteOverTimeReportNotEnd" parameterClass="com.gotop.timeMachine.model.OverTimeReport" >
+	delete from t_model_overtimeReportNotend
+	where request_id = #request_id:DECIMAL:-9999#
+  </delete> 
+  
+   <!-- 查询信贷流程走过的所有节点 -->
+  <select id="queryHistActinstNotEnd" resultMap="HistActinst_Result" parameterClass="java.util.HashMap" >
+    select t.DBID_, t.TYPE_, t.EXECUTION_, t.ACTIVITY_NAME_, 
+   to_char(t.START_, 'yyyymmddhh24miss') AS START_,
+   to_char(t.END_, 'yyyymmddhh24miss') AS END_,
+    t.TRANSITION_, t.HTASK_,
+    row_number() over(partition by t.ACTIVITY_NAME_ order by t.START_ asc) as rn
+    from JBPM4_HIST_ACTINST t  
+	where t.execution_= '$flow_id$'
+	and end_ is null
+  </select> 
+</sqlMap>

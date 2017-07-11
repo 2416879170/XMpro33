@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TimeLimitManage_SqlMap" >
+
+   <resultMap id="oneAndLoanCategory_HashMapResult" class="com.gotop.jbpm.model.OneAndLoanBean" >
+    <result column="D_ID" property="d_id" jdbcType="DECIMAL" />
+    <result column="ONECATEGORY_ID" property="oneCategory_id" jdbcType="VARCHAR" />
+     <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
+     <result column="LOANCATEGORY_ID" property="loanCategory_id" jdbcType="VARCHAR" />
+     <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="workTimeMain_Result" class="com.gotop.jbpm.model.WorkTimeMainBean" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="STARTDATE" property="startDate" jdbcType="VARCHAR" />
+     <result column="ENDDATE" property="endDate" jdbcType="VARCHAR" />
+     <result column="ORGNAME" property="orgname" jdbcType="VARCHAR" />
+     <result column="EMPNAME" property="empname" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="workTimeSide_Result" class="com.gotop.jbpm.model.WorkTimeSideBean" >
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+        <result column="MAINID" property="mainID" jdbcType="DECIMAL" />
+     <result column="TIMETYPE" property="timeType" jdbcType="VARCHAR" />
+     <result column="STARTTIME" property="startTime" jdbcType="VARCHAR" />
+     <result column="ENDTIME" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="oneCategory_HashMapResult" class="java.util.HashMap" >
+    <result column="ONECATEGORY_NAME" property="oneCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="oneCategory_HashMapResult1" class="java.util.HashMap" >
+    <result column="FIRST_CLASS" property="oneCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="loanCategory_HashMapResult" class="java.util.HashMap" >
+    <result column="LOANCATEGORY_NAME" property="loanCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+   <resultMap id="loanCategory_HashMapResult1" class="java.util.HashMap" >
+    <result column="CREDIT_TYPE" property="loanCategory_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="nodeTimeLimitList_HashMapResult" class="com.gotop.jbpm.model.NodeTimeLimitBean" >
+    <result column="E_ID" property="e_id" jdbcType="DECIMAL" />
+    <result column="TASKNAME" property="taskName" jdbcType="VARCHAR" />
+    <result column="TIMELIMIT" property="timeLimit" jdbcType="DOUBLE" />
+    <result column="TWOTIMELIMIT" property="twotimeLimit" jdbcType="DOUBLE" />
+    <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
+    <result column="OP_EMPID" property="op_empid" jdbcType="DECIMAL" />
+    <result column="OP_ORGCODE" property="op_orgcode" jdbcType="VARCHAR" />
+    <result column="OP_TIME" property="op_time" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="proTimeModel_HashMapResult" class="java.util.HashMap" >
+   <result column="C_ID" property="c_id" jdbcType="DECIMAL" />
+    <result column="TIME_MODELNAME" property="time_modelName" jdbcType="VARCHAR" />
+    <result column="DEFINITION_ID" property="definitionId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+  <select id="queryOneAndLoanList" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_oneAndLoanCategory
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="oneCategory_id" >
+           	oneCategory_id in ($oneCategory_id$)
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory_id" >
+           	 loanCategory_id in ($loanCategory_id$)
+      		</isNotNull>
+      		</dynamic>
+  </select>
+  <select id="checkOneAndLoan" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_oneAndLoanCategory
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="oneCategory_name" >
+           	oneCategory_name = '$oneCategory_name$'
+      		</isNotNull>
+      		 <isNotNull prepend="and" property="loanCategory_name" >
+           	 loanCategory_name = '$loanCategory_name$'
+      		</isNotNull>
+      		</dynamic>
+  </select>
+  
+   <insert id="addOneAndLoan" parameterClass="com.gotop.jbpm.model.OneAndLoanBean" >
+       <selectKey resultClass="long" keyProperty="d_id">
+		SELECT t_model_oneAndLoanCategory_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_oneAndLoanCategory(D_ID, ONECATEGORY_ID, ONECATEGORY_NAME, LOANCATEGORY_ID, LOANCATEGORY_NAME)
+    values (#d_id:DECIMAL:-9999#,  #oneCategory_id:VARCHAR#,  #oneCategory_name:VARCHAR#,  #loanCategory_id:VARCHAR#, #loanCategory_name:VARCHAR#)
+  </insert>
+  
+  <delete id="delOneAndLoan" parameterClass="com.gotop.jbpm.model.OneAndLoanBean" >
+    delete from t_model_oneAndLoanCategory t
+    where t.d_id = #d_id:DECIMAL:-9999# 
+  </delete>
+  
+  <select id="queryOneCategorylist" resultMap="oneCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select distinct ONECATEGORY_NAME from t_model_oneAndLoanCategory
+  order by ONECATEGORY_NAME
+  </select>
+  
+  <select id="queryOneCategorylist1" resultMap="oneCategory_HashMapResult1" parameterClass="java.util.HashMap" >
+  SELECT  *  FROM  (
+
+SELECT  t.first_class   FROM  t_generalprocess_cdtype    t  WHERE 1=1
+<isNotNull prepend="and" property="processName" >
+  t.process_name=#processName:VARCHAR#
+</isNotNull>
+GROUP BY  t.first_class) ORDER  BY  first_class  DESC
+  </select>
+  
+  <select id="queryLoanCategorylist" resultMap="loanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select distinct LOANCATEGORY_NAME from t_model_oneAndLoanCategory
+  <dynamic prepend="where" >
+      		<isNotNull prepend="and" property="oneCategory_name" >
+      		trim(oneCategory_name)=trim('$oneCategory_name$')
+      		</isNotNull>
+      </dynamic>
+      order by LOANCATEGORY_NAME
+  </select>
+  
+  <select id="queryLoanCategorylist1" resultMap="loanCategory_HashMapResult1" parameterClass="java.util.HashMap" >
+   SELECT   credit_type  FROM  (
+
+SELECT *  FROM  t_generalprocess_cdtype    t  WHERE 1=1
+<isNotNull prepend="and" property="processName" >
+  t.process_name=#processName:VARCHAR#
+</isNotNull>
+GROUP BY  t.credit_type)  where 1=1 
+<isNotNull prepend="and" property="oneCategory_name" >
+first_class=#oneCategory_name:VARCHAR#
+</isNotNull>
+ORDER  BY  credit_type  DESC
+  </select>
+  
+  <!-- 插入 流程时限模版表 t_model_proTimeLimitModel -->
+  <insert id="insertProTimeLimitModel"  parameterClass="com.gotop.jbpm.model.ProTimeModelBean"   >
+       <selectKey resultClass="long" keyProperty="c_id"  >
+		SELECT t_model_proTimeLimitModel_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_proTimeLimitModel(C_ID, TIME_MODELNAME, DEFINITION_ID)
+    values (#c_id:DECIMAL:-9999#,  trim(#time_modelName:VARCHAR#), #definitionId:VARCHAR#)
+  </insert>
+  
+  <!-- 插入 流程贷种时限关系表 t_model_proLoanTimeLimit -->
+  <insert id="insertProLoanTimeLimit"  parameterClass="com.gotop.jbpm.model.ProLoanBean"  >
+       <selectKey resultClass="long" keyProperty="b_id" >
+		SELECT t_model_proLoanTimeLimit_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_proLoanTimeLimit(B_ID, DEFINITION_ID, C_ID, D_ID, OP_EMPID, OP_ORGCODE, OP_TIME )
+    values (#b_id:DECIMAL:-9999#, #definitionId:VARCHAR#, #c_id:DECIMAL:-9999#,
+    ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$oneCategory_name$'
+ and loanCategory_name = '$loanCategory_name$'  )
+     , #op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#, sysdate)
+  </insert>
+  
+  <select id="queryNodeTimeLimitList" resultMap="nodeTimeLimitList_HashMapResult" parameterClass="java.util.HashMap" >
+  select * from t_model_nodeTimeLimit
+  where c_id = '$c_id$'
+  and taskName = '$taskName$'
+  </select>
+  
+  <!-- 插入 节点时限关系表 t_model_nodeTimeLimit -->
+  <insert id="insertNodeTimeLimit"  parameterClass="com.gotop.jbpm.model.NodeTimeLimitBean"  >
+       <selectKey resultClass="long" keyProperty="e_id" >
+		SELECT t_model_nodeTimeLimit_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_nodeTimeLimit(E_ID, TASKNAME, TIMELIMIT, TWOTIMELIMIT, C_ID, OP_EMPID, OP_ORGCODE, OP_TIME )
+    values (#e_id:DECIMAL:-9999#, #taskName:VARCHAR#, #timeLimit:DOUBLE#, #twotimeLimit:DOUBLE#, #c_id:DECIMAL:-9999#,#op_empid:DECIMAL:-9999#, #op_orgcode:VARCHAR#, sysdate)
+  </insert>
+  
+   <!--修改 节点模式工时维护表-->
+  <update id="updateNodeTimeLimit" parameterClass="com.gotop.jbpm.model.NodeTimeLimitBean" >
+    update t_model_nodeTimeLimit 
+	set TIMELIMIT= #timeLimit:DOUBLE#,
+	TWOTIMELIMIT= #twotimeLimit:DOUBLE#,
+	OP_EMPID= #op_empid:DECIMAL:-9999#,
+	OP_ORGCODE =  #op_orgcode:VARCHAR#,
+	OP_TIME = sysdate
+	where  E_ID = #e_id:DECIMAL:-9999#
+  </update>
+  
+  <select id="querySelectModel" resultMap="proTimeModel_HashMapResult" parameterClass="java.util.HashMap" >
+ select t1.*  from t_model_proTimeLimitModel t1
+ where t1.definition_id = '$definitionId$'
+  </select>
+  
+  <select id="checkTimeModelName" resultMap="proTimeModel_HashMapResult" parameterClass="java.util.HashMap" >
+ select t1.*  from t_model_proTimeLimitModel t1
+ where t1.definition_id = '$definitionId$'
+ and t1.time_modelName = trim('$time_modelName$')
+  </select>
+  
+   <select id="queryProLoanTimeLimit" resultMap="oneAndLoanCategory_HashMapResult" parameterClass="java.util.HashMap" >
+  select t1.*
+  from t_model_oneAndLoanCategory t1
+ where t1.d_id in (select t2.d_id
+                    from t_model_proLoanTimeLimit t2
+                   where 1=1
+                   <isNotNull prepend="and" property="definitionId" >
+                     t2.definition_id = '$definitionId$'
+                   </isNotNull>
+                   <isNotNull prepend="and" property="c_id" >
+                     t2.c_id = '$c_id$'
+                   </isNotNull>  
+                     )
+  </select>
+  <!--修改 节点模式工时维护表-->
+  <update id="updateProLoanTimeLimit" parameterClass="com.gotop.jbpm.model.ProLoanBean" >
+    update t_model_proLoanTimeLimit 
+	set D_ID=  ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$oneCategory_name$'
+ and loanCategory_name = '$loanCategory_name$'  ),
+	OP_EMPID= #op_empid:DECIMAL:-9999#,
+	OP_ORGCODE =  #op_orgcode:VARCHAR#,
+	OP_TIME = sysdate
+	where  DEFINITION_ID = #definitionId:VARCHAR#
+	and C_ID = #c_id:DECIMAL:-9999#
+	and D_ID =  ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$init_oneCategory_name$'
+ and loanCategory_name = '$init_loanCategory_name$'  )
+  </update>
+  
+  <delete id="deleteTimeLimitManage" parameterClass="com.gotop.jbpm.model.ProLoanBean" >
+    delete from t_model_proLoanTimeLimit t
+    where t.DEFINITION_ID = #definitionId:VARCHAR# 
+    and t.C_ID = #c_id:DECIMAL:-9999#
+    and t.D_ID = ( select D_ID from t_model_oneAndLoanCategory
+ where oneCategory_name = '$init_oneCategory_name$'
+ and loanCategory_name = '$init_loanCategory_name$'  )
+  </delete>
+  
+  <!-- 插入工作时间维护 主表 t_model_timeMain -->
+  <insert id="saveWorkTimeIntoTimeMain"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT t_model_timeMain_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_timeMain(ID, STARTDATE, ENDDATE, ORGCODE, EMPID, CREATETIME )
+    values (#id:DECIMAL:-9999#, to_date(#startDate:VARCHAR#,'yyyy/MM/dd'), to_date(#endDate:VARCHAR#,'yyyy/MM/dd'), #orgcode:VARCHAR#, #empid:DECIMAL#, sysdate)
+  </insert>
+  
+  <!-- 插入 工作时间维护 副表 t_model_timeSide -->
+  <insert id="saveWorkTimeIntoTimeSide"  parameterClass="com.gotop.jbpm.model.WorkTimeSideBean"  >
+       <selectKey resultClass="long" keyProperty="id" >
+		SELECT t_model_timeSide_seq.NEXTVAL AS VALUE FROM DUAL
+		</selectKey>
+    insert into t_model_timeSide(ID, TIMETYPE, STARTTIME, ENDTIME, MAINID )
+    values (#id:DECIMAL:-9999#, #timeType:VARCHAR#, #startTime:VARCHAR#, #endTime:VARCHAR# , #mainID:DECIMAL:-9999#)
+  </insert>
+  
+  <!-- 查询 有效日配置列表 -->
+  <select id="queryValidDayList" resultMap="workTimeMain_Result" parameterClass="java.util.HashMap" >
+ select t1.id, to_char(t1.startDate, 'yyyy/MM/dd') as startDate , to_char(t1.endDate, 'yyyy/MM/dd') as endDate,
+    t2.orgname, t3.empname
+  from t_model_timeMain t1, om_organization t2, om_employee t3
+ where t1.orgcode = t2.orgcode
+ and t1.empid = t3.empid
+ and t1.delState='0'
+ <isNotNull prepend="and" property="query_startDate" >
+      t1.startDate >= to_date('$query_startDate$','yyyy/MM/dd')
+ </isNotNull>
+ <isNotNull prepend="and" property="query_endDate" >
+    <![CDATA[  t1.endDate <= to_date('$query_endDate$','yyyy/MM/dd')  ]]>
+ </isNotNull>
+ order by t1.startDate
+  </select>
+  
+  
+   <!-- 通过id 查询 有效日配置列表 -->
+  <select id="queryValidDayById" resultClass="java.util.HashMap" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+ select t1.id, to_char(t1.startDate, 'yyyy-MM-dd') as startDate, to_char(t1.endDate, 'yyyy-MM-dd') as endDate
+  from t_model_timeMain t1
+ where t1.id = #id:DECIMAL:-9999#
+  </select>
+  
+  <!-- 修改 有效日-->
+  <update id="uptValidDayById" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+    update t_model_timeMain t
+    set t.startDate = to_date(#startDate:VARCHAR# , 'yyyy/MM/dd' ),
+    t.endDate = to_date(#endDate:VARCHAR#, 'yyyy/MM/dd' ),
+    t.orgcode = #orgcode:VARCHAR#,
+    t.empid = #empid:DECIMAL#,
+    t.createTime = sysdate
+    where t.id = #id:DECIMAL:-9999# 
+  </update>
+  
+  <!-- 修改 时间主表 删除状态-->
+  <update id="updateTimeMain_delState" parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+    update t_model_timeMain t
+    set t.delState = '1'
+    where t.id = #id:DECIMAL:-9999# 
+  </update>
+  
+  <!-- 修改 时间副表 -->
+  <update id="updateTimeSide" parameterClass="com.gotop.jbpm.model.WorkTimeSideBean" >
+    update t_model_timeSide t
+    where t.mainid = #id:DECIMAL:-9999# 
+  </update>
+  
+  <!-- 查询 时间副表 -->
+  <select id="queryWorkTimeList"  resultMap="workTimeSide_Result"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+ select t.*
+  from t_model_timeSide t
+ where t.mainid = '$id$'
+ order by t.startTime
+ </select>
+ 
+   <!--通过id 查询 时间副表，并将时间转化为一定的格式 -->
+  <select id="queryWorkTimeSide"  resultMap="workTimeSide_Result"  parameterClass="com.gotop.jbpm.model.WorkTimeMainBean" >
+ select t.id, t.mainID, t.timeType, 
+ to_char(to_date(t.startTime, 'hh24:mi:ss'), 'hh24miss') as startTime, 
+ to_char(to_date(t.endTime, 'hh24:mi:ss'), 'hh24miss') as endTime
+  from t_model_timeSide t
+ where t.mainid = '$id$'
+ order by t.startTime
+ </select>
+ 
+   <!--校验 日期不能在之前配过的时间范围内 -->
+  <select id="checkDate" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+ select *
+  from t_model_timeMain
+ where delState = '0' and
+ (
+  <![CDATA[  (startDate <= to_date('$startDate$','yyyy/MM/dd') and endDate > to_date('$startDate$','yyyy/MM/dd'))
+    or (startDate < to_date('$endDate$','yyyy/MM/dd') and endDate >= to_date('$endDate$','yyyy/MM/dd'))
+    or (startDate >= to_date('$startDate$','yyyy/MM/dd') and endDate <= to_date('$endDate$','yyyy/MM/dd'))   ]]>
+ )
+ <isNotNull prepend="and" property="id" >
+    <![CDATA[  id <> '$id$' ]]>
+ </isNotNull>
+ </select>
+ 
+ <!--校验 时间不能在之前配过的时间范围内 -->
+  <select id="checkWorkTime" resultClass="java.util.HashMap" parameterClass="java.util.HashMap" >
+  select *   from t_model_timeSide
+ where 1=1 
+ and mainID = '$mainID$'
+ and
+ (
+  <![CDATA[  (startTime <= '$startTime$' and endTime >= '$startTime$')
+    or (startTime <= '$endTime$' and endTime >= '$endTime$')
+    or (startTime >= '$startTime$' and endTime <= '$endTime$')   ]]>
+ )
+ </select>
+ 
+  <update id="updateWorkTimeById" parameterClass="com.gotop.jbpm.model.WorkTimeSideBean" >
+    update t_model_timeSide t
+    set t.startTime = #startTime:VARCHAR#,
+    	  t.endTime = #endTime:VARCHAR#
+    where t.id = #id:DECIMAL:-9999# 
+  </update>
+  
+  <delete id="deleteWorkTimeById" parameterClass="com.gotop.jbpm.model.WorkTimeSideBean" >
+    delete from t_model_timeSide t
+    where t.id = #id:DECIMAL:-9999# 
+  </delete>
+</sqlMap>

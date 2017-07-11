@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+  <bean class="com.gotop.Generalprocess.action.GeneralprocessAction" id="generalProcessAction" name="generalProcessAction" singleton="false">
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+    <property name="generalProcessService" ref="generalProcessService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
+    <property name="generalprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+    <property name="jbpmService" ref="jbpmService" />
+     <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+     
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessMainAction" id="tGeneralprocessMainaction" name="tGeneralprocessMainAction" singleton="false">
+    <property name="tGeneralprocessMainService" ref="tGeneralprocessMainService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeltwoAction" id="tGeneralprocessModeltwoaction" name="tGeneralprocessModeltwoAction" singleton="false">
+    <property name="tGeneralprocessModeltwoService" ref="tGeneralprocessModeltwoService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+  </bean>
+  
+   <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeloneAction" id="tGeneralprocessModeloneAction" name="tGeneralprocessModeloneAction" singleton="false">
+    <property name="tGeneralprocessModeloneService" ref="generalprocessModeloneService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelthreeAction" id="tGeneralprocessModelthreeaction" name="tGeneralprocessModelthreeAction" singleton="false">
+    <property name="generalprocessModelthreeService" ref="tGeneralprocessModelthreeService" />
+    <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
+  	<property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+  	 <property name="jbpmService" ref="jbpmService" />
+  	 <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+  	 <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessCdtypeAction" id="tGeneralprocessCdtypeaction" name="tGeneralprocessCdtypeAction" singleton="false">
+    <property name="tGeneralprocessCdtypeService" ref="tGeneralprocessCdtypeService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfourAction" id="tGeneralprocessModelfouraction" name="tGeneralprocessModelfourAction" singleton="false">
+    <property name="tGeneralprocessModelfourService" ref="tGeneralprocessModelfourService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+   
+  </bean>
+  
+  
+  
+    <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelsixAction" id="tGeneralprocessModelsixaction" name="tGeneralprocessModelsixAction" singleton="false">
+    <property name="tGeneralprocessModelsixService" ref="tGeneralprocessModelsixService" />
+        <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+         <property name="generalprocessModeloneService" ref="generalprocessModeloneService" />
+            <property name="jbpmService" ref="jbpmService" />
+            <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+            <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelfiveAction" id="tGeneralprocessModelfiveaction" name="tGeneralprocessModelfiveAction" singleton="false">
+    <property name="tGeneralprocessModelfiveService" ref="tGeneralprocessModelfiveService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModeleightAction" id="tGeneralprocessModeleightaction" name="tGeneralprocessModeleightAction" singleton="false">
+    <property name="tGeneralprocessModeleigthService" ref="tGeneralprocessModeleightService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+    <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+       <property name="tApproveOpninionService" ref="tApproveOpninionService" />
+    <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+    
+    
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.action.TGeneralprocessModelsevenAction" id="tGeneralprocessModelsevenaction" name="tGeneralprocessModelsevenAction" singleton="false">
+    <property name="tGeneralprocessModelsevenService" ref="tGeneralprocessModelsevenService" />
+    <property name="generalprocessMainService" ref="tGeneralprocessMainService" />
+    <property name="jbpmService" ref="jbpmService" />
+     <property name="tDefaultOpinionService" ref="tDefaultOpinionService" />
+     <property name="generalprocessMistakeService" ref="generalprocessMistakeService" />
+  </bean>
+  </beans>

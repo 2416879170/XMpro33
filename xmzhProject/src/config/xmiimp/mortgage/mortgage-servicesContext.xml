@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
+<beans >
+  
+  
+  <bean id="mortgageReserveService" class="com.gotop.mortgage.service.impl.MortgageReserveService" >
+    <property name="mortgageReserveDao" ref="mortgageReserveDao" />
+  </bean>
+  <bean id="mortgageReserveHouseService" class="com.gotop.mortgage.service.impl.MortgageReserveHouseService">
+  	<property name="mortgageReserveHouseDao" ref="mortgageReserveHouseDao"></property>
+  </bean>
+  
+  <bean id="scanService" class="com.gotop.mortgage.service.impl.ScanService" >
+    <property name="scanDao" ref="scanDao" />
+    <property name="mortgageReserveDao" ref="mortgageReserveDao" />
+  </bean>
+  
+  <bean id="loanInfoService" class="com.gotop.mortgage.service.impl.LoanInfoService" >
+    <property name="loanInfoDao" ref="loanInfoDao" />
+  </bean>
+  
+  <bean id="mortgageLogService" class="com.gotop.mortgage.service.impl.MortgageLogService" >
+    <property name="mortgageLogDao" ref="mortgageLogDao" />
+  </bean>
+  
+  <bean id="inventoryStatService" class="com.gotop.mortgage.service.impl.InventoryStatService" >
+    <property name="inventoryStatDao" ref="inventoryStatDao" />
+  </bean>
+</beans>

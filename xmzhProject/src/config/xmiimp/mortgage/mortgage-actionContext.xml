@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
+<beans >
+ <bean name="mortgageReserveOut" id="mortgageReserveOut" class="com.gotop.mortgage.model.MortgageReserveOut" singleton="false" ></bean> 
+ <bean name="mortgageReserveRes" id="mortgageReserveRes" class="com.gotop.mortgage.model.MortgageReserveRes" singleton="false" ></bean> 
+  <bean name="mortgageReserve" id="mortgageReserve" class="com.gotop.mortgage.model.MortgageReserve" singleton="false" ></bean> 
+  <bean name="mortgageReserveCar" id="mortgageReserveCar" class="com.gotop.mortgage.model.MortgageReserveCar" singleton="false" ></bean> 
+  <bean name="mortgageReserveHouseCar" id="mortgageReserveHouseCar" class="com.gotop.mortgage.model.MortgageReserveHouseCar" singleton="false" ></bean>
+  <bean name="mortgageReserveHouse" id="mortgageReserveHouse" class="com.gotop.mortgage.model.MortgageReserveHouse" singleton="false" ></bean>  
+   <bean name="mortgageList" id="mortgageList" class="com.gotop.mortgage.model.MortgageList" singleton="false"></bean>
+   <bean name="mortgageReserveAction" id="mortgageReserveAction" class="com.gotop.mortgage.action.MortgageReserveAction" singleton="false" >
+     <property name="mortgageReserveService" ref="mortgageReserveService" />
+    <property name="mortgageReserveOut" ref="mortgageReserveOut" />
+    <property name="mortgageReserveRes" ref="mortgageReserveRes" />
+    <property name="mortgageReserve" ref="mortgageReserve" />
+    <property name="mortgageReserveCar" ref="mortgageReserveCar" />
+    <property name="mortgageReserveHouse" ref="mortgageReserveHouse" />
+  </bean>
+  <bean name="mortgageReserveHouseAction" id="mortgageReserveHouseAction" class="com.gotop.mortgage.action.MortgageReserveHouseAction" singleton="false">
+  	<property name="mortgageReserveHouseCar" ref="mortgageReserveHouseCar"></property>
+  	<property name="mortgageReserveHouseService" ref="mortgageReserveHouseService"></property>
+  	<property name="mortgageReserve" ref="mortgageReserve"></property>
+  	<property name="mortgageList" ref="mortgageList"></property>
+  	<property name="mortgageLog" ref="mortgageLog"></property>
+  </bean>
+  
+  
+  <bean name="scan" id="scan" class="com.gotop.mortgage.model.Scan" singleton="false" ></bean> 
+   <bean name="scanManagementAction" id="scanManagementAction" class="com.gotop.mortgage.action.ScanManagementAction" singleton="false" >
+     <property name="scanService" ref="scanService" />
+    <property name="scan" ref="scan" />
+  </bean>
+  
+  <bean name="loanInfo" id="loanInfo" class="com.gotop.mortgage.model.LoanInfo" singleton="false" ></bean> 
+   <bean name="loanInfoQueryAction" id="loanInfoQueryAction" class="com.gotop.mortgage.action.LoanInfoQueryAction" singleton="false" >
+     <property name="loanInfoService" ref="loanInfoService" />
+    <property name="loanInfo" ref="loanInfo" />
+  </bean>
+  
+   <bean name="mortgageLog" id="mortgageLog" class="com.gotop.mortgage.model.MortgageLog" singleton="false" ></bean> 
+   <bean name="mortgageLogQueryAction" id="mortgageLogQueryAction" class="com.gotop.mortgage.action.MortgageLogQueryAction" singleton="false" >
+     <property name="mortgageLogService" ref="mortgageLogService" />
+    <property name="mortgageLog" ref="mortgageLog" />
+  </bean>
+  
+  <bean name="inventoryStat" id="inventoryStat" class="com.gotop.mortgage.model.InventoryStat" singleton="false" ></bean> 
+   <bean name="inventoryStatQueryAction" id="inventoryStatQueryAction" class="com.gotop.mortgage.action.InventoryStatQueryAction" singleton="false" >
+     <property name="inventoryStatService" ref="inventoryStatService" />
+    <property name="inventoryStat" ref="inventoryStat" />
+  </bean>
+
+</beans>

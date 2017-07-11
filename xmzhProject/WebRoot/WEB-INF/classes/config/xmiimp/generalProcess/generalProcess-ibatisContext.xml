@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <bean class="com.gotop.Generalprocess.dao.impl.GeneralprocessMistakeDao" id="generalprocessMistakeDao">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.GeneralprocessDAO" id="generalProcessDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessMainDAO" id="generalprocessMainDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModeloneDAO" id="generalprocessModeloneDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModeltwoDAO" id="tGeneralprocessModeltwoDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelthreeDAO" id="tGeneralprocessModelthreeDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessCdtypeDAO" id="tGeneralprocessCdtypeDAO">
+  	 <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelfourDAO" id="tGeneralprocessModelfourDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+    <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelsixDAO" id="tGeneralprocessModelsixDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelfiveDAO" id="tGeneralprocessModelfiveDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModeleightDAO" id="tGeneralprocessModeleightDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  
+  <bean class="com.gotop.Generalprocess.dao.impl.TGeneralprocessModelsevenDAO" id="tGeneralprocessModelsevenDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+  </beans>
