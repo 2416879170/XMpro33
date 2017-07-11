@@ -1042,9 +1042,16 @@ select o.id,
     <![CDATA[
 		update T_MORTGAGE_house_INFO set
 		PROPERTY_NUMS='0'
-		where id='$id$'
+      where 1=1 
 		
 	]]>
+	
+      <isNotNull prepend="and" property="id" >
+	   id='$id$'
+	 </isNotNull>
+      <isNotNull prepend="and" property="warrantsId" >
+	   warrants_id='$warrantsId$'
+	 </isNotNull>
 	</update>
 	
 	

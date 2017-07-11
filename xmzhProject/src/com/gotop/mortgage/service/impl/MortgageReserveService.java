@@ -738,6 +738,7 @@ public class MortgageReserveService implements IMortgageReserveService {
 				tmpMap.put("warrantsId", warrantsId);
 				if("1".equals(mortgageType)){
 					houseWarrantsNums=mortgageReserveDao.queryPropertyNums(tmpMap);
+					mortgageReserveDao.updMortgageHouseNums(tmpMap);
 				}else if ("2".equals(mortgageType)){
 					houseWarrantsNums=mortgageReserveDao.queryCarNums(tmpMap);
 				}
