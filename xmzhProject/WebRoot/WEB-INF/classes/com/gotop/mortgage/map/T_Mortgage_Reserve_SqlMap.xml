@@ -1,0 +1,1621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="T_Mortgage_Reserve_SqlMap">
+ 
+  <resultMap id="tMortgageReserve" class="com.gotop.mortgage.model.MortgageReserve" >
+    <!--Bean方式返回全表-->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MORTGAGETYPE" property="mortgageType" jdbcType="VARCHAR" />
+    <result column="OTHERTYPE" property="otherType" jdbcType="VARCHAR" /> 
+    <result column="OTHERTYPEJDC" property="otherTypeJDC" jdbcType="VARCHAR" /> 
+    <result column="OTHERTYPEFC" property="otherTypeFC" jdbcType="VARCHAR" /> 
+    <result column="PROJECTNUMBER" property="projectNumber" jdbcType="VARCHAR" />  
+    <result column="PROJECTNUMBER" property="tmpProjectNumber" jdbcType="VARCHAR" />  
+    <result column="OTHERWARRANTSNUMBER" property="otherWarrantsNumber" jdbcType="VARCHAR" /> 
+    <result column="OTHERWARRANTSNUMBER" property="tmpOtherWarrantsNumber" jdbcType="VARCHAR" /> 
+    <result column="OTHERWARRANTSDATE" property="otherWarrantsDate" jdbcType="VARCHAR" />   
+    <result column="BORROWERNAME" property="borrowerName" jdbcType="VARCHAR" />  
+    <result column="BORROWERCARDNO" property="borrowerCardNo" jdbcType="VARCHAR" />    
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />      
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />    
+    <result column="MANGER_NAME" property="mangerName" jdbcType="VARCHAR" />    
+    <result column="LOAN_TYPE" property="loanType" jdbcType="VARCHAR" />      
+    <result column="LOAN_TYPE" property="loanTypeJDC" jdbcType="VARCHAR" />         
+    <result column="LOAN_TYPE" property="loanTypeFC" jdbcType="VARCHAR" />        
+    <result column="BORROWER_CONTRACTNO" property="borrowerContractNo" jdbcType="VARCHAR" />        
+    <result column="LOAN_YEARS" property="loanYears" jdbcType="VARCHAR" />        
+    <result column="RECORD_VALUE" property="recordValue" jdbcType="VARCHAR" />        
+    <result column="PACKET_NUMBER" property="packetNumber" jdbcType="VARCHAR" />        
+    <result column="NEXT_NAME" property="nextName" jdbcType="VARCHAR" />                  
+    <result column="PURCHASE_NUMBER" property="purchaseNumber" jdbcType="VARCHAR" />               
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />                   
+    <result column="NO_REGISTER_SIGN" property="noRegisterSign" jdbcType="VARCHAR" />                        
+    <result column="status" property="status" jdbcType="VARCHAR" />                           
+    <result column="AFTER_MORTGAGE_STATUS" property="afterMortgageStatus" jdbcType="VARCHAR" />                               
+  </resultMap> 
+
+ 
+   
+    <select id="queryMortgageReserveListInfo" parameterClass="java.util.HashMap" resultMap="tMortgageReserve">
+	select t.id ,
+       t.mortgage_type MORTGAGETYPE,
+	   t.other_type OTHERTYPE, 
+	   t.other_type OTHERTYPEFC, 
+	   t.other_type OTHERTYPEJDC,
+       t.other_type OTHERTYPE,
+       t.project_number PROJECTNUMBER,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.other_warrants_date OTHERWARRANTSDATE,
+       t.borrower_name BORROWERNAME,
+       t.borrower_cardno BORROWERCARDNO,
+       t.org_code ORGCODE,
+       o.orgname ORGNAME,
+       t.manger_name  MANGER_NAME,
+       t.loan_type LOAN_TYPE,
+       t.borrower_contractno BORROWER_CONTRACTNO,
+       t.loan_years LOAN_YEARS,
+       t.record_value RECORD_VALUE,
+       t.packet_number PACKET_NUMBER,
+       t.next_name NEXT_NAME,
+       t.purchase_number PURCHASE_NUMBER,
+       t.remark REMARK,
+       t.no_register_sign NO_REGISTER_SIGN,
+       t.status STATUS,
+       t.after_mortgage_status AFTER_MORTGAGE_STATUS
+  from t_warrants_info t
+  left join OM_ORGANIZATION O
+ on t.org_code=o.orgcode
+ where  1=1
+	 <isNotNull prepend="and" property="mortgageType" >
+	  t.mortgage_type='$mortgageType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="id" >
+	  t.id='$id$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="projectNumber" >
+	  t.project_number='$projectNumber$'
+	 </isNotNull>
+  </select>  
+
+  
+  
+  
+  
+  <resultMap id="tMortgageReserveGenerate" class="com.gotop.mortgage.model.MortgageReserve" >
+    <!--Bean方式返回全表-->
+    <result column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MORTGAGETYPE" property="mortgageType" jdbcType="VARCHAR" />
+    <result column="OTHERTYPE" property="otherType" jdbcType="VARCHAR" /> 
+    <result column="PROJECTNUMBER" property="projectNumber" jdbcType="VARCHAR" />  
+    <result column="PROJECTNUMBER" property="tmpProjectNumber" jdbcType="VARCHAR" />  
+    <result column="OTHERWARRANTSNUMBER" property="otherWarrantsNumber" jdbcType="VARCHAR" /> 
+    <result column="OTHERWARRANTSNUMBER" property="tmpOtherWarrantsNumber" jdbcType="VARCHAR" /> 
+    <result column="OTHERWARRANTSDATE" property="otherWarrantsDate" jdbcType="VARCHAR" />   
+    <result column="BORROWERNAME" property="borrowerName" jdbcType="VARCHAR" />  
+    <result column="BORROWERCARDNO" property="borrowerCardNo" jdbcType="VARCHAR" />    
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />      
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />    
+    <result column="MANGER_NAME" property="mangerName" jdbcType="VARCHAR" />    
+    <result column="LOAN_TYPE" property="loanType" jdbcType="VARCHAR" />       
+    <result column="BORROWER_CONTRACTNO" property="borrowerContractNo" jdbcType="VARCHAR" />        
+    <result column="LOAN_YEARS" property="loanYears" jdbcType="VARCHAR" />        
+    <result column="RECORD_VALUE" property="recordValue" jdbcType="VARCHAR" />        
+    <result column="PACKET_NUMBER" property="packetNumber" jdbcType="VARCHAR" />        
+    <result column="NEXT_NAME" property="nextName" jdbcType="VARCHAR" />                  
+    <result column="PURCHASE_NUMBER" property="purchaseNumber" jdbcType="VARCHAR" />               
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />                   
+    <result column="NO_REGISTER_SIGN" property="noRegisterSign" jdbcType="VARCHAR" />                        
+    <result column="status" property="status" jdbcType="VARCHAR" />                           
+    <result column="AFTER_MORTGAGE_STATUS" property="afterMortgageStatus" jdbcType="VARCHAR" /> 
+    <result column="PROPERTYNAME" property="propertyName" jdbcType="VARCHAR" />                      
+    <result column="PROPERTYCARDNO" property="propertyCardNo" jdbcType="VARCHAR" />                                                    
+  </resultMap> 
+
+ 
+   
+    <select id="openGenerate" parameterClass="java.util.HashMap" resultMap="tMortgageReserveGenerate">
+	  
+  select gg.id,gg.MORTGAGETYPE,
+       gg.OTHERTYPE,
+       gg.PROJECTNUMBER,
+       gg.OTHERWARRANTSNUMBER,
+       gg.OTHERWARRANTSDATE,
+       gg.BORROWERNAME,
+       gg.BORROWERCARDNO,
+       gg.ORGCODE,
+       gg.ORGNAME,
+       gg.MANGER_NAME,
+       gg.LOAN_TYPE,
+       gg.BORROWER_CONTRACTNO,
+       gg.LOAN_YEARS,
+       gg.RECORD_VALUE,
+       gg.PACKET_NUMBER,
+       gg.NEXT_NAME,
+       gg.PURCHASE_NUMBER,
+       gg.REMARK,
+       gg.NO_REGISTER_SIGN,
+       gg.STATUS,
+       gg.AFTER_MORTGAGE_STATUS,
+       hh.property_no PROPERTYNO,
+       hh.property_name PROPERTYNAME,
+       hh.property_cardno PROPERTYCARDNO,
+       hh.property_addres PROPERTYADDRES,
+       hh.property_nums PROPERTYNUMS
+  from
+  (select t.id , t.mortgage_type MORTGAGETYPE,
+       t.other_type OTHERTYPE, 
+       t.project_number PROJECTNUMBER,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.other_warrants_date OTHERWARRANTSDATE,
+       t.borrower_name BORROWERNAME,
+       t.borrower_cardno BORROWERCARDNO,
+       t.org_code ORGCODE,
+       o.orgname ORGNAME,
+       t.manger_name  MANGER_NAME,
+       t.loan_type LOAN_TYPE,
+       t.borrower_contractno BORROWER_CONTRACTNO,
+       t.loan_years LOAN_YEARS,
+       t.record_value RECORD_VALUE,
+       t.packet_number PACKET_NUMBER,
+       t.next_name NEXT_NAME,
+       t.purchase_number PURCHASE_NUMBER,
+       t.remark REMARK,
+       t.no_register_sign NO_REGISTER_SIGN,
+       t.status STATUS,
+       t.after_mortgage_status AFTER_MORTGAGE_STATUS
+  from t_warrants_info t
+  left join OM_ORGANIZATION O
+ on t.org_code=o.orgcode
+)gg
+ left join t_mortgage_house_info hh
+ on gg.id=hh.warrants_id
+ where 1=1
+	 <isNotNull prepend="and" property="mortgageType" >
+	  gg.MORTGAGETYPE='$mortgageType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="id" >
+	  gg.id='$id$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="projectNumber" >
+	  gg.PROJECTNUMBER='$projectNumber$'
+	 </isNotNull>
+	 <![CDATA[
+	  and rownum<2
+	    ]]>
+  </select>  
+  
+  
+  
+  <select id="backqueryMortgageReserveHouseList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select t.id WARRANTSID,
+       t.other_type OTHERTYPE,
+       t.project_number PROJECTNUMBER,
+       t.loan_type LOANTYPE,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.borrower_name BORROWERNAME,
+       t.status,
+       o.property_no PROPERTYNO,
+       o.property_name PROPERTYNAME,
+       o.property_addres PROPERTYADDRES
+  from t_warrants_info t, t_mortgage_house_info o
+ where t.id = o.warrants_id
+  and t.mortgage_type='1'
+
+  </select>  
+  
+
+  
+  <select id="queryMortgageReserveListHouseInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select 
+	   o.id ID,
+       o.warrants_id WARRANTSID, 
+       o.property_no PROPERTYNO,
+       o.property_name PROPERTYNAME,
+       o.property_cardno PROPERTYCARDNO,
+       o.property_addres PROPERTYADDRES,
+       o.property_nums PROPERTYNUMS,
+       o.property_date PROPERTYDATE,
+       rownum NOWCOUNT
+  from t_mortgage_house_info o
+ where 1=1
+	 <isNotNull prepend="and" property="id" >
+	  o.warrants_id='$id$'
+	 </isNotNull>
+    order by id
+		
+  </select>  
+  
+
+  
+   <select id="queryMortgageReserveListCarInfo" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select
+	   o.id ID,
+       o.warrants_id WARRANTSID, 
+       o.car_name CARNAME,
+       o.car_cardno CARCARDNO,
+       o.car_registerno CARREGISTERNO,
+       o.car_no CARNO,
+       o.car_frameno CARFRAMENO,
+       o.car_invoiceno CARINVOICENO,
+       o.car_duesno CARDUESNO,
+       o.car_safeno CARSAFENO,
+       rownum NOWCOUNT
+  from  t_mortgage_car_info o
+ where 1=1
+	 <isNotNull prepend="and" property="id" >
+	  o.warrants_id='$id$'
+	 </isNotNull>
+   order by id
+  </select>  
+   
+  <select id="queryMortgageReserveList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select t.id WARRANTSID,
+       t.other_type OTHERTYPE,
+       t.project_number PROJECTNUMBER,
+       t.loan_type LOANTYPE,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.borrower_name BORROWERNAME,
+       t.borrower_cardno BORROWERCARDNO,
+       t.status
+  from t_warrants_info t
+ where 1=1
+	 <isNotNull prepend="and" property="mortgageType" >
+	  t.mortgage_type='$mortgageType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="otherType" >
+	  t.other_type='$otherType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="projectNumber" >
+	  t.project_number='$projectNumber$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="status" >
+	  t.status='$status$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="afterMortgageStatus" >
+	  t.after_mortgage_status='$afterMortgageStatus$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerName" >
+	  t.borrower_name like '%$borrowerName$%'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerCardNo" >
+	  t.borrower_cardno like '%$borrowerCardNo$%'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="otherWarrantsNumber" >
+	  t.other_warrants_number like '%$otherWarrantsNumber$%'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="loanType" >
+	  t.loan_type='$loanType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="orgCode" >
+	  t.org_code='$orgCode$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="noRegisterSign" >
+	  t.no_register_sign='$noRegisterSign$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="propertyName" >
+	  exists  (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where t.id=h.warrants_id and h.property_name like '%$propertyName$%' 
+	  )
+	 </isNotNull>
+	 <isNotNull prepend="and" property="propertyCardNo" >
+	  exists  (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where t.id=h.warrants_id and h.property_cardno like '%$propertyCardNo$%'
+	  )
+	 </isNotNull>  
+	 <isNotNull prepend="and" property="propertyNo" >
+	  exists  (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where t.id=h.warrants_id and h.property_no like '%$propertyNo$%'
+	  )
+	 </isNotNull>  
+	 <isNotNull prepend="and" property="propertyAddres" >
+	  exists (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where t.id=h.warrants_id and  h.property_addres like '%$propertyAddres$%'
+	  )
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carRegisterno" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where t.id=o.warrants_id and  o.car_registerno like '%$carRegisterno$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carNo" >
+	  exists  (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where t.id=o.warrants_id and o.car_no like '%$carNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carFrameNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where t.id=o.warrants_id and o.car_frameno like '%$carFrameNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carInvoiceNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where t.id=o.warrants_id and o.car_invoiceno like '%$carInvoiceNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carDuesNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where t.id=o.warrants_id and o.car_duesno like '%$carDuesNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carSafeNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where t.id=o.warrants_id and o.car_safeno like '%$carSafeNo$%')
+	 </isNotNull>
+    order by id
+  </select>  
+   
+  <select id="queryMortgageReserveHouseList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select t.id WARRANTSID,
+       t.other_type OTHERTYPE,
+       t.project_number PROJECTNUMBER,
+       t.loan_type LOANTYPE,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.borrower_name BORROWERNAME,
+       t.borrower_cardno BORROWERCARDNO,
+       o.id HOUSEID,
+       o.property_no PROPERTYNO,
+       o.property_name PROPERTYNAME,
+       o.property_cardno PROPERTYCARDNO,
+       o.property_addres PROPERTYADDRES,
+       o.property_nums PROPERTYNUMS
+  from t_warrants_info t left join t_mortgage_house_info o 
+  on t.id=o.warrants_id
+ where  t.mortgage_type='1'
+	 <isNotNull prepend="and" property="id" >
+	  t.id='$id$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerName" >
+	  t.borrower_name like '%$borrowerName$%'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerCardNo" >
+	  t.borrower_cardno= '$borrowerCardNo$'
+	 </isNotNull>
+
+  </select>  
+  
+  
+  <select id="backqueryMortgageReserveCarList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select t.id WARRANTSID,
+       t.other_type OTHERTYPE,
+       t.project_number PROJECTNUMBER,
+       t.loan_type LOANTYPE,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.borrower_name BORROWERNAME,
+       t.status,
+       o.car_name CARNAME,
+       o.car_registerno CARREGISTERNO
+  from t_warrants_info t, t_mortgage_car_info o
+ where t.id = o.warrants_id
+  and t.mortgage_type='2'
+
+  </select>  
+  
+   <select id="queryMortgageReserveCarList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select t.id WARRANTSID,
+       t.other_type OTHERTYPE,
+       t.project_number PROJECTNUMBER,
+       t.loan_type LOANTYPE,
+       t.other_warrants_number OTHERWARRANTSNUMBER,
+       t.borrower_name BORROWERNAME,
+       t.borrower_cardno,
+       o.id CARID,
+       o.car_no CARNO,
+       o.car_registerno CARREGISTERNO,
+       o.car_name CARNAME,
+       o.car_cardno CARCARDNO
+  from t_warrants_info t left join t_mortgage_car_info o 
+  on t.id=o.warrants_id
+ where  t.mortgage_type='2'
+	 <isNotNull prepend="and" property="id" >
+	  t.id='$id$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerName" >
+	  t.borrower_name like '%$borrowerName$%'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerCardNo" >
+	  t.borrower_cardno= '$borrowerCardNo$'
+	 </isNotNull>
+
+
+  </select>  
+  
+<select id="checkOtherWarrantsNumber"   parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+	<![CDATA[
+	select count(t.other_warrants_number) as reslutNums
+  from T_WARRANTS_INFO t
+ where STATUS = '1'
+	
+	   ]]>
+	 <isNotNull prepend="and" property="otherWarrantsNumber" >
+	 t.other_warrants_number = '$otherWarrantsNumber$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="mortgageType" >
+	 t.mortgage_type = '$mortgageType$'
+	 </isNotNull>
+	</select>
+	
+	
+<select id="checkProjectNumber"   parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+	<![CDATA[
+	select count(t.Project_Number) as reslutProjectNums
+  from T_WARRANTS_INFO t
+ where 1=1
+	   ]]>
+   <isNotNull prepend="and" property="projectNumber" >
+	 t.Project_Number = '$projectNumber$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="mortgageType" >
+	 t.mortgage_type = '$mortgageType$'
+	 </isNotNull>
+	</select>
+	
+	
+	
+<select id="checkCarRegisterNo"   parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+	<![CDATA[
+	select count(t.car_registerno)
+  from t_mortgage_car_info t
+  where 1=1
+	   ]]>
+   <isNotNull prepend="and" property="carRegisterNo" >
+	 t.car_registerno='$carRegisterNo$'
+	 </isNotNull>
+	
+	</select>
+	
+	
+	<!-- 出入库是否已归还 -->
+	<select id="checkIsLog"   parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+    select 
+	   case when t.borrower_log=1 or borrower_log=2 then 1
+	  else 0
+	  end isFlag
+	  from t_mortgage_list t 
+	 where 1=1
+	 <isNotNull prepend="and" property="warrantsId" >
+	 t.warrants_id = '$warrantsId$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="operatingId" >
+	 t.operating_id = '$operatingId$'
+	 </isNotNull>
+	 
+	   and t.insert_time=(select max(insert_time) from t_mortgage_list g
+	   where 1=1 
+	    <isNotNull prepend="and" property="warrantsId" >
+	 g.warrants_id = '$warrantsId$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="operatingId" >
+	 g.operating_id = '$operatingId$'
+	 </isNotNull>
+	   )
+		
+	</select>
+	
+	
+	<!--  查看是否可以入库注销 -->
+	<select id="checkIsBack"   parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+	   select count(1) as NUMS
+		 from T_MORTGAGE_LIST t
+		 where 1=1
+		 <isNotNull prepend="and" property="warrantsId" >
+		 t.warrants_id = '$warrantsId$'
+		 </isNotNull>
+		  <isNotNull prepend="and" property="operatingId" >
+		 t.operating_id = '$operatingId$'
+		 </isNotNull>
+		  and t.operating_matters='2'
+		  and t.borrower_log='2'
+		  and t.type='1'
+		  and t.operating_id not in (
+		  select operating_id from T_MORTGAGE_LIST  g
+		  where 1=1
+		  <isNotNull prepend="and" property="warrantsId" >
+		   g.warrants_id = '$warrantsId$'
+		 </isNotNull>
+		  <isNotNull prepend="and" property="operatingId" >
+		   g.operating_id = '$operatingId$'
+		 </isNotNull>
+		    and g.operating_matters='2'
+		    and g.borrower_log='4'
+		    and g.type='2'
+		  )
+		  and t.warrants_id  in (select o.id from t_warrants_info o where 1=1 
+		  and o.status='2'
+		  <isNotNull prepend="and" property="warrantsId" >
+		   o.id = '$warrantsId$'
+		 </isNotNull>
+		  )
+
+		
+	</select>
+	
+	<resultMap id="tShowBorrowerNums" class="com.gotop.mortgage.model.MortgageReserveOut" >
+    <!--Bean方式返回全表-->
+    <result column="INBORROWERNUMS" property="inBorrowerNums" jdbcType="VARCHAR" />
+    <result column="INBORROWERLOGINFO" property="inBorrowerLogInfo" jdbcType="VARCHAR" />   
+    <result column="INSERTTIME" property="insertTime" jdbcType="VARCHAR" />  
+    <result column="OPERATINGMATTERS" property="operatingMatters" jdbcType="VARCHAR" />                                      
+  </resultMap> 
+	
+	<!-- 入库时显示外借信息-->
+	<select id="showBorrowerNums"   parameterClass="java.util.HashMap" resultMap="tShowBorrowerNums">
+    select t.borrower_nums INBORROWERNUMS,t.operating_matters INBORROWERLOGINFO
+    ,to_char(to_date(t.insert_time,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd') INSERTTIME,t.operating_matters OPERATINGMATTERS
+	  from t_mortgage_list t 
+	 where 1=1
+	 and t.type='$outInType$'
+	 <isNotNull prepend="and" property="warrantsId" >
+	 t.warrants_id = '$warrantsId$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="operatingId" >
+	 t.operating_id = '$operatingId$'
+	 </isNotNull>
+	 
+	   and t.insert_time=(select max(insert_time) from t_mortgage_list g
+	   where 1=1 
+	    <isNotNull prepend="and" property="warrantsId" >
+	 g.warrants_id = '$warrantsId$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="operatingId" >
+	 g.operating_id = '$operatingId$'
+	 </isNotNull>
+	   )
+		
+	</select>
+	
+	
+	
+	<resultMap id="tShowStatus" class="com.gotop.mortgage.model.MortgageReserveRes" >
+    <!--Bean方式返回全表-->
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="AFTERMORTGAGESTATUS" property="afterMortgageStatus" jdbcType="VARCHAR" />                               
+  </resultMap> 
+	<!-- 系统状态信息-->
+	<select id="showStatus"   parameterClass="java.util.HashMap" resultMap="tShowStatus">
+      select t.status STATUS, t.after_mortgage_status AFTERMORTGAGESTATUS from t_warrants_info t
+	 where 1=1
+	 <isNotNull prepend="and" property="warrantsId" >
+	 t.id = '$warrantsId$'
+	 </isNotNull>
+	   
+		
+	</select>
+	
+	
+	
+	<!-- 获取序列 -->
+	<select id="getNextSeqValue" resultClass="java.lang.Long">
+		SELECT $seqName$.NEXTVAL FROM DUAL
+	</select>
+	
+	
+	<!-- 获取序列 -->
+	<select id="checkIsUpdLog"  parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+		SELECT COUNT(T.WARRANTS_ID) updNums FROM T_WARRANTS_UPD_LOG t
+		where t.warrants_id='$warrantsId$'  and t.mortgage_type='$mortgageType$'
+	</select>
+	
+	
+	<!-- 记录变更权证信息 -->
+	<insert id="insertMortgageUpdLog" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into T_WARRANTS_UPD_LOG 
+			(warrants_id,
+		   MORTGAGE_TYPE,
+		   OTHER_TYPE,
+		   PROJECT_NUMBER,
+		   OTHER_WARRANTS_NUMBER,
+		   OTHER_WARRANTS_DATE,
+		   BORROWER_NAME,
+		   BORROWER_CARDNO,
+		   ORG_CODE,
+		   MANGER_NAME,
+		   LOAN_TYPE,
+		   BORROWER_CONTRACTNO,
+		   LOAN_YEARS,
+		   RECORD_VALUE,
+		   PACKET_NUMBER,
+		   NEXT_NAME,
+		   PURCHASE_NUMBER,
+		   REMARK,
+		   property_no,
+		   property_name,
+		   property_cardno,
+		   property_addres,
+		   property_nums,
+		   property_date,
+		   CAR_NAME, 
+			CAR_CARDNO, 
+			CAR_REGISTERNO,  
+			CAR_NO,  
+			CAR_FRAMENO,
+			CAR_INVOICENO, 
+			CAR_DUESNO, 
+			CAR_SAFENO,
+		   ORG_NAME,
+		   empname,
+		   EMPID,
+		   INSERT_TIME)
+		values
+			($warrantsId$, 
+			'$mortgageType$', 
+			'$otherType$', 
+			'$projectNumber$', 
+			'$otherWarrantsNumber$', 
+			'$otherWarrantsDate$', 
+			'$borrowerName$',
+			'$borrowerCardNo$',
+			'$orgCode$',
+			'$mangerName$',
+			'$loanType$',
+			'$borrowerContractNo$',
+			'$loanYears$',
+			'$recordValue$',
+			'$packetNumber$',
+			'$nextName$',
+			'$purchaseNumber$',
+			'$remark$',
+			'$propertyNo$', 
+			'$propertyName$', 
+			'$propertyCardNo$', 
+			'$propertyAddres$', 
+			'$propertyNums$', 
+			'$propertyDate$',
+			'$carName$', 
+			'$carCardNo$', 
+			'$carRegisterNo$', 
+			'$carNo$', 
+			'$carFrameNo$', 
+			'$carInvoiceNo$',
+			'$carDuesNo$',
+			'$carSafeNo$',
+			'$orgName$',
+			'$empName$',
+		    '$empId$',
+			to_char(sysdate,'yyyymmddhh24miss'))
+		
+	]]>
+	</insert>
+	
+	
+	
+	<!-- 记录变更权证信息 -->
+	<insert id="insertMortgageUpdLogSlect" parameterClass="java.util.HashMap">
+	
+   <isEqual  property="mortgageType" compareValue="1">
+    <![CDATA[
+		insert into T_WARRANTS_UPD_LOG
+  (warrants_id,
+   MORTGAGE_TYPE,
+   OTHER_TYPE,
+   PROJECT_NUMBER,
+   OTHER_WARRANTS_NUMBER,
+   OTHER_WARRANTS_DATE,
+   BORROWER_NAME,
+   BORROWER_CARDNO,
+   ORG_CODE,
+   MANGER_NAME,
+   LOAN_TYPE,
+   BORROWER_CONTRACTNO,
+   LOAN_YEARS,
+   RECORD_VALUE,
+   PACKET_NUMBER,
+   NEXT_NAME,
+   PURCHASE_NUMBER,
+   REMARK,
+   property_no,
+   property_name,
+   property_cardno,
+   property_addres,
+   property_nums,
+   property_date,
+   INSERT_TIME,
+   ORG_NAME,
+   empname,
+   EMPID)
+select    o.id,
+          o.mortgage_type,
+          other_type,
+          project_number,
+          other_warrants_number,
+          other_warrants_date,
+          borrower_name,
+          borrower_cardno,
+          org_code,
+          manger_name,
+          loan_type,
+          borrower_contractno,
+          loan_years,
+          record_value,
+          packet_number,
+          next_name,
+          purchase_number,
+          o.remark,
+          property_no,
+          property_name,
+          property_cardno,
+          property_addres,
+          property_nums,
+          property_date,
+          o.INSERT_TIME,
+          o.orgname,
+          o.empname,
+          o.empid
+     from t_warrants_info o
+     left join t_mortgage_house_info t
+       on o.id=t.warrants_id
+    where o.id = '$warrantsId$'
+
+		
+	]]>
+	</isEqual>
+	
+	<isEqual  property="mortgageType" compareValue="2">
+    <![CDATA[
+		insert into T_WARRANTS_UPD_LOG
+  (warrants_id,
+   MORTGAGE_TYPE,
+   OTHER_TYPE,
+   PROJECT_NUMBER,
+   OTHER_WARRANTS_NUMBER,
+   OTHER_WARRANTS_DATE,
+   BORROWER_NAME,
+   BORROWER_CARDNO,
+   ORG_CODE,
+   MANGER_NAME,
+   LOAN_TYPE,
+   BORROWER_CONTRACTNO,
+   LOAN_YEARS,
+   RECORD_VALUE,
+   PACKET_NUMBER,
+   NEXT_NAME,
+   PURCHASE_NUMBER,
+   REMARK,
+	CAR_NAME, 
+	CAR_CARDNO, 
+	CAR_REGISTERNO,  
+	CAR_NO,  
+	CAR_FRAMENO,
+	CAR_INVOICENO, 
+	CAR_DUESNO, 
+	CAR_SAFENO,
+   INSERT_TIME,
+   ORG_NAME,
+   empname,
+   EMPID)
+select o.id,
+       o.mortgage_type,
+       mortgage_type,
+       other_type,
+       project_number,
+       other_warrants_number,
+       other_warrants_date,
+       borrower_name,
+       borrower_cardno,
+       org_code,
+       manger_name,
+       loan_type,
+       borrower_contractno,
+       loan_years,
+       record_value,
+       packet_number,
+       next_name,
+       purchase_number,
+       o.remark,
+       CAR_NAME,
+       CAR_CARDNO,
+       CAR_REGISTERNO,
+       CAR_NO,
+       CAR_FRAMENO,
+       CAR_INVOICENO,
+       CAR_DUESNO,
+       CAR_SAFENO,
+       o.INSERT_TIME,
+       o.orgname,
+       o.empname,
+       o.empid
+  from t_warrants_info o
+  left join t_mortgage_car_info t
+    on o.id = t.warrants_id
+ where o.id = '$warrantsId$'
+		
+	]]>
+	</isEqual>
+	
+	
+	</insert>
+	
+	
+	<!-- 插入一条权证信息记录 -->
+	<insert id="insertMortgage" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into t_warrants_info 
+			(id, 
+			MORTGAGE_TYPE, 
+			OTHER_TYPE, 
+			PROJECT_NUMBER,  
+			OTHER_WARRANTS_NUMBER,  
+			OTHER_WARRANTS_DATE,  
+			BORROWER_NAME, 
+			BORROWER_CARDNO, 
+			ORG_CODE, 
+			ORGNAME, 
+			MANGER_NAME, 
+			LOAN_TYPE, 
+			BORROWER_CONTRACTNO, 
+			LOAN_YEARS, 
+			RECORD_VALUE, 
+			PACKET_NUMBER, 
+			NEXT_NAME, 
+			PURCHASE_NUMBER, 
+			REMARK, 
+			NO_REGISTER_SIGN,
+			INSERT_TIME, 
+			EMPID, 
+			EMPNAME)
+		values
+			($id$, 
+			'$mortgageType$', 
+			'$otherType$', 
+			'$projectNumber$', 
+			'$otherWarrantsNumber$', 
+			'$otherWarrantsDate$', 
+			'$borrowerName$',
+			'$borrowerCardNo$',
+			'$orgCode$',
+			'$orgName$',
+			'$mangerName$',
+			'$loanType$',
+			'$borrowerContractNo$',
+			'$loanYears$',
+			'$recordValue$',
+			'$packetNumber$',
+			'$nextName$',
+			'$purchaseNumber$',
+			'$remark$',
+			'$noRegisterSign$',
+			'$inserttime$',
+			'$empId$',
+			'$empName$')
+		
+	]]>
+	</insert>
+	
+	<!-- 插入一条房产押品信息记录 -->
+	<insert id="insertMortgageHouse" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into T_MORTGAGE_house_INFO 
+			(id,
+			WARRANTS_ID, 
+			PROPERTY_NO, 
+			PROPERTY_NAME, 
+			PROPERTY_CARDNO,  
+			PROPERTY_ADDRES,  
+			PROPERTY_NUMS,  
+			PROPERTY_DATE)
+		values
+			('$id$',
+			 '$warrantsId$', 
+			'$propertyNo$', 
+			'$propertyName$', 
+			'$propertyCardNo$', 
+			'$propertyAddres$', 
+			'$propertyNums$', 
+			'$propertyDate$')
+		
+	]]>
+	</insert>
+	
+	<!-- 插入一条机动车押品信息记录 -->
+	<insert id="insertMortgageCar" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into T_MORTGAGE_CAR_INFO 
+			(id,
+			WARRANTS_ID, 
+			CAR_NAME, 
+			CAR_CARDNO, 
+			CAR_REGISTERNO,  
+			CAR_NO,  
+			CAR_FRAMENO,
+			CAR_INVOICENO, 
+			CAR_DUESNO, 
+			CAR_SAFENO)
+		values
+			('$id$', 
+			'$warrantsId$', 
+			'$carName$', 
+			'$carCardNo$', 
+			'$carRegisterNo$', 
+			'$carNo$', 
+			'$carFrameNo$', 
+			'$carInvoiceNo$',
+			'$carDuesNo$',
+			'$carSafeNo$')
+		
+	]]>
+	</insert>
+	
+	
+	<!-- 插入一条日志表信息记录 -->
+	<insert id="insertMortgageLog" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into T_MORTGAGE_LOG 
+			(OPERATING_TIME, 
+			OPERATING_USERID, 
+			OPERATING_TYPE, 
+			OPERATING_MORTGAG_ID,  
+			OPERATING_REMARK)
+		values
+			('$inserttime$', 
+			'$userID$', 
+			'$operatingType$', 
+			'$warrantsId$', 
+			'$remark$')
+		
+	]]>
+	</insert>
+	
+	
+	<!-- 入权证上传文件信息记录 -->
+	<insert id="insertMortgageFile" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into T_WARRANTS_FILE 
+			(WARRANTS_ID, 
+			FILE_NAME,
+			FILE_PATH,
+			CREATOR,
+			CREATE_DATE,
+			FILE_RE_NAME)
+		values
+			('$warrantsId$',
+			'$fileName$',
+			'$filePath$',  
+			'$userID$', 
+			to_char(sysdate,'yyyyMMddhh24miss'), 
+			'$fileReName$')
+		
+	]]>
+	</insert>
+	
+	<select id="queryFileByIdandType" resultClass="com.gotop.mortgage.model.WarrantsFile" parameterClass="java.util.HashMap">
+  	select FILE_ID fileId, warrants_id resourceId, FILE_NAME fileName, FILE_PATH filePath,
+      CREATOR, CREATE_DATE createDate
+    from T_WARRANTS_FILE
+    where warrants_id = '$id$'
+  </select>
+  
+  <select id="getFileResource" resultClass="com.gotop.mortgage.model.WarrantsFile" parameterClass="java.util.HashMap">
+  	select FILE_ID fileId, warrants_id resourceId, FILE_NAME fileName, FILE_PATH filePath,
+      CREATOR, CREATE_DATE createDate
+    from T_WARRANTS_FILE
+    where FILE_ID = '$id$'
+  </select>
+  
+  
+	<!-- 修改一条权证信息记录 -->
+	<update id="updMortgage" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update  t_warrants_info set
+		OTHER_TYPE='$otherType$', 
+		OTHER_WARRANTS_NUMBER='$otherWarrantsNumber$', 
+		OTHER_WARRANTS_DATE='$otherWarrantsDate$', 
+		BORROWER_NAME='$borrowerName$',
+		BORROWER_CARDNO='$borrowerCardNo$',
+		ORG_CODE='$orgCode$',
+		MANGER_NAME='$mangerName$',
+		LOAN_TYPE='$loanType$',
+		BORROWER_CONTRACTNO='$borrowerContractNo$',
+		LOAN_YEARS='$loanYears$',
+		RECORD_VALUE='$recordValue$',
+		PACKET_NUMBER='$packetNumber$',
+		NEXT_NAME='$nextName$',
+		PURCHASE_NUMBER='$purchaseNumber$',
+		REMARK='$remark$'
+		where id='$id$'
+		
+	]]>
+	</update>
+	
+	<!-- 修改一条房产押品信息记录 -->
+	<update id="updMortgageHouse" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update T_MORTGAGE_house_INFO set
+		PROPERTY_NO='$propertyNo$', 
+		PROPERTY_NAME='$propertyName$',
+		PROPERTY_CARDNO='$propertyCardNo$', 
+		PROPERTY_ADDRES='$propertyAddres$', 
+		PROPERTY_NUMS='$propertyNums$', 
+		PROPERTY_DATE='$propertyDate$'
+		where id='$id$'
+			
+		
+	]]>
+	</update>
+	
+	
+	
+	<!-- 修改一条房产押品信息记录 -->
+	<update id="updMortgageHouseNums" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update T_MORTGAGE_house_INFO set
+		PROPERTY_NUMS='0'
+      where 1=1 
+		
+	]]>
+	
+      <isNotNull prepend="and" property="id" >
+	   id='$id$'
+	 </isNotNull>
+      <isNotNull prepend="and" property="warrantsId" >
+	   warrants_id='$warrantsId$'
+	 </isNotNull>
+	</update>
+	
+	
+	
+	<!-- 修改权证信息状态 -->
+	<update id="updMortgageStatus" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update t_warrants_info set
+		STATUS='$status$'
+		where id='$id$'
+		
+	]]>
+	</update>
+	
+	
+	<!-- 注销后抵质押品状态 -->
+	<update id="updMortgageAfterMortgageStatus" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update t_warrants_info set
+		AFTER_MORTGAGE_STATUS='$afterMortgageStatus$'
+		where id='$id$'
+		
+	]]>
+	</update>
+	
+	
+	
+	<!-- 入库时归还,修改出库状态为已归还修改-->
+	<update id="updMortgageOutIn" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update T_MORTGAGE_LIST set
+		BORROWER_LOG='3'
+		where WARRANTS_ID='$warrantsId$'
+		and OPERATING_ID='$operatingId$'
+		and type='1'
+		
+	]]>
+	</update>
+	
+	<!-- 修改一条机动车押品信息记录 -->
+	<update id="updMortgageCar" parameterClass="java.util.HashMap">
+    <![CDATA[
+		update T_MORTGAGE_CAR_INFO set
+		CAR_NAME='$carName$', 
+		CAR_CARDNO='$carCardNo$', 
+		CAR_REGISTERNO='$carRegisterNo$', 
+		CAR_NO='$carNo$',
+		CAR_FRAMENO='$carFrameNo$',
+		CAR_INVOICENO='$carInvoiceNo$',
+		CAR_DUESNO='$carDuesNo$',
+		CAR_SAFENO='$carSafeNo$'
+		where id='$id$'
+			
+		
+	]]>
+	</update>
+	
+	
+	<!-- 入权证上传文件信息记录 -->
+	<insert id="insertMortgageReserveOutMap" parameterClass="java.util.HashMap">
+    <![CDATA[
+		insert into T_MORTGAGE_LIST 
+			(WARRANTS_ID, 
+			BORROWER_NUMS,
+			BORROWER_LOG,
+			OPERATING_MATTERS,
+			REMARK,
+			INSERT_TIME,
+			type,
+			borrower_next_name,
+			house_warrants_nums,
+			other_warrants_nums,
+			OPERATING_ID)
+		values
+			('$warrantsId$',
+			'$borrowerNums$',
+			'$borrowerLog$',  
+			'$operatingMatters$', 
+			'$remark$', 
+			'$insertTime$',
+			'$outInType$',
+			'$nextName$',
+			'$houseWarrantsNums$',
+			'$otherWarrantsNums$',
+			'$operatingId$')
+		
+	]]>
+	</insert>
+	
+	
+	
+	
+	  
+  <select id="queryMortgageReserveListExcel" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select kk.id,
+	   kk.mortgage_type,
+       kk.other_type OTHERTYPE,
+       kk.project_number PROJECTNUMBER,
+       kk.other_warrants_number OTHERWARRANTSNUMBER,
+       kk.other_warrants_date OTHERWARRANTSDATE,
+       kk.borrower_name BORROWERNAME,
+       kk.borrower_cardno BORROWERCARDNO,
+       OM.ORGNAME,
+       kk.manger_name MANGERNAME,
+       kk.loan_type LOANTYPE,
+       kk.borrower_contractno BORROWERCONTRACTNO,
+       kk.loan_years LOANYEARS,
+       kk.record_value RECORDVALUE,
+       kk.packet_number PACKETNUMBER,
+       kk.next_name NEXTNAME,
+       kk.purchase_number PURCHASENUMBER,
+       kk.remark REMARK,
+       kk.no_register_sign NOREGISTERSIGN,
+       kk.INSERTTIME,
+       kk.status STATUS,
+       kk.after_mortgage_status AFTER_MORTGAGE_STATUS,
+      
+       kk.property_no PROPERTYNO,
+       kk.property_name PROPERTYNAME,
+       kk.property_cardno PROPERTYCARDNO,
+       kk.property_addres PROPERTYADDRES,
+       kk.property_nums PROPERTYNUMS,
+       kk.property_date PROPERTYDATE,
+     
+       row_number() OVER(PARTITION BY kk.id ORDER BY kk.project_number) RN
+  FROM (select t.id ,
+               t.mortgage_type,
+               t.other_type,
+               t.project_number,
+               t.other_warrants_number,
+               t.other_warrants_date,
+               t.borrower_name,
+               t.borrower_cardno,
+               t.org_code,
+               t.manger_name,
+               t.loan_type,
+               t.borrower_contractno,
+               t.loan_years,
+               t.record_value,
+               t.packet_number,
+               t.next_name,
+               t.purchase_number,
+               t.remark,
+               t.no_register_sign,
+               t.status,
+               to_char(to_date(t.insert_time, 'yyyy-mm-dd hh24:mi:ss'),
+                       'yyyy-mm-dd') INSERTTIME,
+               t.after_mortgage_status,
+               o.property_no,
+               o.property_name,
+               o.property_cardno,
+               o.property_addres,
+               o.property_nums,
+               o.property_date
+               
+          from t_warrants_info t
+          left join
+           t_mortgage_house_info o
+            on t.id = o.warrants_id) kk
+  left join OM_ORGANIZATION om
+    on kk.org_code = om.ORGCODE
+ where 1 = 1
+	 <isNotNull prepend="and" property="mortgageType" >
+	  kk.mortgage_type='$mortgageType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="projectNumber" >
+	  kk.project_number='$projectNumber$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="status" >
+	  kk.status='$status$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerName" >
+	  kk.borrower_name='$borrowerName$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerCardNo" >
+	  kk.borrower_cardno='$borrowerCardNo$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="otherWarrantsNumber" >
+	  kk.other_warrants_number='$otherWarrantsNumber$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="loanType" >
+	  kk.loan_type='$loanType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="orgCode" >
+	  kk.org_code='$orgCode$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="noRegisterSign" >
+	  kk.no_register_sign='$noRegisterSign$'
+	 </isNotNull>
+	  <isNotNull prepend="and" property="propertyName" >
+	  exists  (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where kk.id=h.warrants_id and h.property_name like '%$propertyName$%' 
+	  )
+	 </isNotNull>
+	 <isNotNull prepend="and" property="propertyCardNo" >
+	  exists  (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where kk.id=h.warrants_id and h.property_cardno like '%$propertyCardNo$%'
+	  )
+	 </isNotNull>  
+	 <isNotNull prepend="and" property="propertyAddres" >
+	  exists (select h.warrants_id
+	  from t_mortgage_house_info h
+	 where kk.id=h.warrants_id and  h.property_addres like '%$propertyAddres$%'
+	  )
+	 </isNotNull>
+  </select>  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	  
+  <select id="queryMortgageReserveListCarExcel" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select kk.id,
+	   kk.mortgage_type,
+       kk.other_type OTHERTYPE,
+       kk.project_number PROJECTNUMBER,
+       kk.other_warrants_number OTHERWARRANTSNUMBER,
+       kk.other_warrants_date OTHERWARRANTSDATE,
+       kk.borrower_name BORROWERNAME,
+       kk.borrower_cardno BORROWERCARDNO,
+       OM.ORGNAME,
+       kk.manger_name MANGERNAME,
+       kk.loan_type LOANTYPE,
+       kk.borrower_contractno BORROWERCONTRACTNO,
+       kk.loan_years LOANYEARS,
+       kk.record_value RECORDVALUE,
+       kk.packet_number PACKETNUMBER,
+       kk.next_name NEXTNAME,
+       kk.purchase_number PURCHASENUMBER,
+       kk.remark REMARK,
+       kk.no_register_sign NOREGISTERSIGN,
+       kk.INSERTTIME,
+       kk.status STATUS,
+       kk.after_mortgage_status AFTER_MORTGAGE_STATUS,
+    
+       kk.car_name CARNAME,
+       kk.car_cardno CARCARDNO,
+       kk.car_registerno CARREGISTERNO,
+       kk.car_no CARNO,
+       kk.car_frameno CARFRAMENO,
+       kk.car_invoiceno CARINVOICENO,
+       kk.car_duesno CARDUESNO,
+       kk.car_safeno CARSAFENO,
+       row_number() OVER(PARTITION BY kk.id ORDER BY kk.project_number) RN
+  FROM (select t.id ,
+               t.mortgage_type,
+               t.other_type,
+               t.project_number,
+               t.other_warrants_number,
+               t.other_warrants_date,
+               t.borrower_name,
+               t.borrower_cardno,
+               t.org_code,
+               t.manger_name,
+               t.loan_type,
+               t.borrower_contractno,
+               t.loan_years,
+               t.record_value,
+               t.packet_number,
+               t.next_name,
+               t.purchase_number,
+               t.remark,
+               t.no_register_sign,
+               t.status,
+               to_char(to_date(t.insert_time, 'yyyy-mm-dd hh24:mi:ss'),
+                       'yyyy-mm-dd') INSERTTIME,
+               t.after_mortgage_status,
+               o.car_name,
+               o.car_cardno,
+               o.car_registerno,
+               o.car_no,
+               o.car_frameno,
+               o.car_invoiceno,
+               o.car_duesno,
+               o.car_safeno
+          from t_warrants_info t
+          left join
+           t_mortgage_car_info o
+            on t.id = o.warrants_id) kk
+  left join OM_ORGANIZATION om
+    on kk.org_code = om.ORGCODE
+ where 1 = 1
+	 <isNotNull prepend="and" property="mortgageType" >
+	  kk.mortgage_type='$mortgageType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="projectNumber" >
+	  kk.project_number='$projectNumber$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="status" >
+	  kk.status='$status$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerName" >
+	  kk.borrower_name='$borrowerName$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="borrowerCardNo" >
+	  kk.borrower_cardno='$borrowerCardNo$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="otherWarrantsNumber" >
+	  kk.other_warrants_number='$otherWarrantsNumber$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="loanType" >
+	  kk.loan_type='$loanType$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="orgCode" >
+	  kk.org_code='$orgCode$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="noRegisterSign" >
+	  kk.no_register_sign='$noRegisterSign$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carRegisterno" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where kk.id=o.warrants_id and  o.car_registerno like '%$carRegisterno$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carNo" >
+	  exists  (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where kk.id=o.warrants_id and o.car_no like '%$carNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carFrameNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where kk.id=o.warrants_id and o.car_frameno like '%$carFrameNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carInvoiceNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where kk.id=o.warrants_id and o.car_invoiceno like '%$carInvoiceNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carDuesNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where kk.id=o.warrants_id and o.car_duesno like '%$carDuesNo$%')
+	 </isNotNull>
+	 <isNotNull prepend="and" property="carSafeNo" >
+	  exists (select o.warrants_id
+		  from t_mortgage_car_info o
+		 where kk.id=o.warrants_id and o.car_safeno like '%$carSafeNo$%')
+	 </isNotNull>
+  </select>  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<resultMap id="orgsMap" class="com.gotop.mortgage.model.MortgageReserve" >
+    <!--Bean方式返回全表-->
+    <result column="ORGCODE" property="orgCode" jdbcType="VARCHAR" />      
+    <result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />                          
+  </resultMap> 
+	
+	<!-- 查询营销人员机构 -->
+  	<select id="queryOrgs"  parameterClass="java.util.HashMap"   resultMap="orgsMap">
+  	
+  	select t.orgname, t.orgcode
+  from OM_ORGANIZATION t
+ where t.orgname like '%$orgName$%'
+ <![CDATA[ 
+   and rownum < 2
+  	]]>
+  	</select>
+	
+	
+	
+	<!-- 查询出入库信息 -->
+  	<select id="queryOutInHouseList"  parameterClass="java.util.HashMap"   resultClass="java.util.HashMap">
+  	
+  	select gg.operating_time    OPERATINGTIME,
+       gg.type              TYPE,
+       gg.operating_matters OPERATINGMATTERS,
+       gg.project_number    PROJECTNUMBER,
+       gg.property_no       PROPERTYNO,
+       gg.next_name         NEXTNAME,
+       gg.property_name     PROPERTYNAME,
+       gg.operating_remark  OPERATINGREMARK,
+       ee.empname           EMPNAME
+  from (select d.id ,
+               d.warrants_id,
+               to_char(TO_DATE(a.operating_time, 'yyyyMMddhh24miss'),
+                      'yyyy-mm-dd hh24:mi')  operating_time,
+               d.type AS type,
+               d.operating_matters,
+               c.project_number,
+               b.property_no,
+               b.property_name,
+               b.property_cardno,
+               b.property_addres,
+               b.property_nums,
+               a.operating_userid,
+               d.borrower_next_name  next_name,
+               d.REMARK  operating_remark
+          from T_MORTGAGE_LIST d
+  left join T_MORTGAGE_HOUSE_INFO b
+    on d.warrants_id = b.warrants_id
+   and d.OPERATING_ID = b.ID
+  left join T_WARRANTS_INFO c
+    on d.warrants_id = c.id
+  left join T_MORTGAGE_LOG a
+    on d.warrants_id = a.OPERATING_MORTGAG_ID
+   and d.INSERT_TIME = a.OPERATING_TIME)gg
+   left join 
+   om_employee ee
+   on gg.operating_userid=ee.empid
+   where 1=1
+	 <isNotNull prepend="and" property="id" >
+	   gg.warrants_id='$id$'
+	 </isNotNull>
+	 order by id
+	
+  	</select>
+	
+	
+	<!-- 查询出入库信息 -->
+  	<select id="queryOutInCarList"  parameterClass="java.util.HashMap"   resultClass="java.util.HashMap">
+  	
+  	select gg.operating_time OPERATINGTIME,
+       gg.type TYPE,
+       gg.operating_matters OPERATINGMATTERS,
+       gg.project_number PROJECTNUMBER,
+       gg.car_no CARNO,
+       gg.car_name CARNAME,
+       gg.next_name NEXTNAME,
+       gg.operating_remark  OPERATINGREMARK,
+       ee.empname EMPNAME 
+        from
+(select d.id,
+       d.warrants_id,
+       to_char(TO_DATE(a.operating_time, 'yyyyMMddhh24miss'),
+               'yyyy-mm-dd hh24:mi')  operating_time,
+       d.type,
+       d.operating_matters,
+       c.project_number,
+       b.car_no,
+       b.car_name,
+       a.operating_userid ,
+       d.borrower_next_name  next_name,
+       d.REMARK  operating_remark
+  from T_MORTGAGE_LIST d
+  left join T_MORTGAGE_CAR_INFO b
+    on d.warrants_id = b.warrants_id
+   and d.OPERATING_ID = b.ID
+  left join T_WARRANTS_INFO c
+    on d.warrants_id = c.id
+  left join T_MORTGAGE_LOG a
+    on d.warrants_id = a.OPERATING_MORTGAG_ID
+   and d.INSERT_TIME = a.OPERATING_TIME)gg
+   left join 
+   om_employee ee
+   on gg.operating_userid=ee.empid
+   where 1=1
+	 <isNotNull prepend="and" property="id" >
+	   gg.warrants_id='$id$'
+	 </isNotNull>
+	 order by id
+	
+  	</select>
+	
+	
+	
+	<!-- 查询库存变更信息日志 -->
+  	<select id="queryDetailColl"  parameterClass="java.util.HashMap"   resultClass="java.util.HashMap">
+  	select
+       kk.mortgage_type MORTGAGETYPE,
+       kk.other_type OTHERTYPE,
+       kk.empname EMPNAME, 
+       kk.project_number PROJECTNUMBER,
+       kk.other_warrants_number OTHERWARRANTSNUMBER,
+       kk.other_warrants_date OTHERWARRANTSDATE,
+       kk.borrower_name BORROWERNAME,
+       kk.borrower_cardno BORROWERCARDNO,
+       kk.ORG_NAME ORGNAME,
+       kk.manger_name MANGERNAME,
+       kk.loan_type LOANTYPE,
+       kk.borrower_contractno BORROWERCONTRACTNO,
+       kk.loan_years LOANYEARS,
+       kk.record_value RECORDVALUE,
+       kk.packet_number PACKETNUMBER,
+       kk.next_name NEXTNAME,
+       kk.purchase_number PURCHASENUMBER,
+       kk.remark REMARK,
+       kk.no_register_sign NOREGISTERSIGN,
+       kk.status STATUS,
+       kk.after_mortgage_status AFTER_MORTGAGE_STATUS,
+       to_char(to_date(kk.insert_time,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi') INSERTTIME,
+       <isEqual property="mortgageType" compareValue="1">
+       kk.property_no PROPERTYNO,
+       kk.property_name PROPERTYNAME,
+       kk.property_cardno PROPERTYCARDNO,
+       kk.property_addres PROPERTYADDRES,
+       kk.property_nums PROPERTYNUMS,
+       kk.property_date PROPERTYDATE,
+       </isEqual>
+       
+       <isEqual property="mortgageType" compareValue="2">
+       kk.car_name CARNAME,
+       kk.car_cardno CARCARDNO,
+       kk.car_registerno CARREGISTERNO,
+       kk.car_no CARNO,
+       kk.car_frameno CARFRAMENO,
+       kk.car_invoiceno CARINVOICENO,
+       kk.car_duesno CARDUESNO,
+       kk.car_safeno CARSAFENO,
+       </isEqual>
+       row_number() OVER(PARTITION BY kk.id ORDER BY kk.project_number) RN
+  from T_WARRANTS_UPD_LOG kk
+ where 1=1
+	 <isNotNull prepend="and" property="warrantsId" >
+	   kk.warrants_id='$warrantsId$'
+	 </isNotNull>
+	 <isNotNull prepend="and" property="mortgageType" >
+        kk.mortgage_type = '$mortgageType$'
+	 </isNotNull>
+	 
+	 <isNotNull prepend="and" property="empName" >
+        kk.empname like'%$empName$%'
+	 </isNotNull>
+	 order by id
+	
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	 <select id="queryPropertyNums" resultClass="java.lang.Long"  parameterClass="java.util.HashMap">
+  	select nvl(sum(t.property_nums), 0) PROPERTYNUMS
+  from T_MORTGAGE_HOUSE_INFO t
+  where 1=1
+  and t.warrants_id = '$warrantsId$'
+  </select>
+  	
+  	
+  		 <select id="queryCarNums" resultClass="java.lang.Long"  parameterClass="java.util.HashMap">
+  	select count(*) PROPERTYNUMS
+  from T_MORTGAGE_CAR_INFO t
+  where 1=1
+  and t.warrants_id = '$warrantsId$'
+  </select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+</sqlMap>

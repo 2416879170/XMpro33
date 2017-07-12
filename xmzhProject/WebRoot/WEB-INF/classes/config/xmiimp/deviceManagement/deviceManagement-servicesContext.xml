@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
+<beans >
+  <bean id="deviceManagermentService" class="com.gotop.deviceManagement.service.impl.DeviceManagementService" >
+    <property name="deviceManagementDAO" ref="deviceManagementDAO" />
+  	<property name="deviceManDetailDAO" ref="deviceManDetailDAO" />
+  </bean>
+  <bean id="deviceManDetailService" class="com.gotop.deviceManagement.service.impl.DeviceManDetailService" >
+  	<property name="deviceManDetailDAO" ref="deviceManDetailDAO" />
+  </bean>
+  <bean id="myMainTreeService" class="com.gotop.deviceManagement.service.impl.MyMainTreeService" >
+  	<property name="mainTreeDao" ref="mainTreeDao" />
+  	<property name="myMainTreeDao" ref="myMainTreeDao" />
+  </bean>
+  
+  <bean id="deviceNameAndModelService" class="com.gotop.deviceManagement.service.impl.DeviceNameAndModelService" >
+  	<property name="deviceNameAndModelDao" ref="deviceNameAndModelDao" />
+  </bean>
+</beans>

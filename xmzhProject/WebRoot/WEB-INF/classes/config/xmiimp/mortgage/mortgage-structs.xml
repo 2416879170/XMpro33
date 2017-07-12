@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="mortgage" namespace="/" extends="default">
+		<action name="mortgageReserveAction_*" class="mortgageReserveAction"
+			method="{1}">
+			<result name="mortgageReserveList">
+				/jsp/mortgage/mortgage_List.jsp
+			</result>
+			<result name="mortgageReserveListExcel">
+				/jsp/mortgage/mortgage_List_Excel.jsp
+			</result>
+			<result name="mortgageReserveListCarExcel">
+				/jsp/mortgage/mortgage_CarList_Excel.jsp
+			</result>
+	      <result name="add_mortgageReserve" >
+	        /jsp/mortgage/add_mortgageReserve.jsp
+	      </result>
+	      <result name="out_in_mortgageReserveList" >
+	       /jsp/mortgage/out_in_collateral_list.jsp
+	      </result>
+	      <result name="out_in_mortgageReserve" >
+	       /jsp/mortgage/out_in_collateral.jsp
+	      </result>
+	      <result name="add_collateral_info" >
+	        /jsp/mortgage/add_collateral_info.jsp
+	      </result>
+	      <result name="view_collateral_info" >
+	        /jsp/mortgage/view_collateral_info.jsp
+	      </result>
+	      <result name="mortgage_detail_List" >
+	        /jsp/mortgage/mortgage_detail_List.jsp
+	      </result>
+	      <result name="upd_collateral_info" >
+	        /jsp/mortgage/upd_collateral_info.jsp
+	      </result>
+	      <result name="list1" type="json">
+			   <param name="root">fileResourceTables</param>
+		  </result>
+	      <result name="orgsList" type="json">
+			   <param name="root">mortgageReserveListInfo</param>
+		  </result>
+		</action>
+		
+		<action name="scanManagementAction_*" class="scanManagementAction"
+			method="{1}">
+			<result name="scan_import_manager">
+				/jsp/mortgage/scan_import_manager.jsp
+			</result>
+			<result name="queryScanList">
+				/jsp/mortgage/scan_query.jsp
+			</result>
+			<result name="add_scanImport" >
+	           /jsp/mortgage/scan_import_manager.jsp
+	       </result>
+			<result name="download" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="bufferSize">10240</param>
+				<param name="contentDisposition">attachment;filename=${global_filename}</param>
+				<param name="inputName">test</param>
+			</result>
+		</action>
+		
+		<action name="loanInfoQueryAction_*" class="loanInfoQueryAction"
+			method="{1}">
+			<result name="queryLoanInfoList">
+				/jsp/mortgage/check_query.jsp
+			</result>
+			<result name="QueryHouseLoanInfoForExcel" >
+                /jsp/mortgage/check_query_house_excel.jsp
+            </result>  
+            <result name="QueryCarLoanInfoForExcel" >
+                /jsp/mortgage/check_query_car_excel.jsp
+            </result>  
+		</action>
+		
+		<action name="mortgageLogQueryAction_*" class="mortgageLogQueryAction"
+			method="{1}">
+			<result name="queryMortgageLogList">
+				/jsp/mortgage/mortgage_OperateLog.jsp
+			</result>
+			<result name="QueryMortgageLogForExcel" >
+                /jsp/mortgage/mortgage_OperateLog_excel.jsp
+            </result>  
+		</action>
+		
+		<action name="inventoryStatQueryAction_*" class="inventoryStatQueryAction"
+			method="{1}">
+			<result name="queryInventoryStatList">
+				/jsp/mortgage/inventory_Stat.jsp
+			</result> 
+            <result name="inventoryStatTimeReport" >
+                /jsp/mortgage/inventoryStatTimeReport.jsp
+            </result> 
+            <result name="QueryHouseInventoryStatForExcel" >
+                /jsp/mortgage/inventory_Stat_House_excel.jsp
+            </result>  
+            <result name="QueryCarInventoryStatForExcel" >
+                /jsp/mortgage/inventory_Stat_Car_excel.jsp
+            </result>  
+            
+		</action>
+		<action name="mortgageReserveHouseAction_*" class="mortgageReserveHouseAction"
+			method="{1}">
+	      <result name="mortgageReserveHouseList">
+				/jsp/mortgage/mortgage_query.jsp
+			</result>
+			<result name="queryMortgageQueryForExcel">
+				/jsp/mortgage/mortgage_query_Excel.jsp
+			</result>
+			<result name="RegisterSignConfirm">
+				/jsp/mortgage/mortgage_check_confirm.jsp
+			</result>
+			<result name="queryMortgageInOut">
+				/jsp/mortgage/mortgage_in_out.jsp
+			</result>
+			<result name="queryMortgageReserveCarDetailInOutForExcel">
+				/jsp/mortgage/mortgage_InOutCarDetail_Excel.jsp
+			</result>
+			<result name="queryMortgageReserveHouseDetailInOutForExcel">
+				/jsp/mortgage/mortgage_InOutHouseDetail_Excel.jsp
+			</result>
+			<result name="queryMortgageReserveCarDetailInOutForExcel1">
+				/jsp/mortgage/mortgage_InOutCarDetail1_Excel.jsp
+			</result>
+			<result name="queryMortgageReserveHouseDetailInOutForExcel1">
+				/jsp/mortgage/mortgage_InOutHouseDetail1_Excel.jsp
+			</result>
+			<result name="queryMortgageReserveCarInOutForExcel">
+				/jsp/mortgage/mortgage_InOutCarTotal_Excel.jsp
+			</result>
+			<result name="queryMortgageReserveHouseInOutForExcel">
+				/jsp/mortgage/mortgage_InOutHouseTotal_Excel.jsp
+			</result>
+		</action>
+	</package>
+</struts>
