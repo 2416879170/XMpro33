@@ -608,7 +608,11 @@ public class MortgageReserveService implements IMortgageReserveService {
 			map.put("nextName", mortgageReserve.getNextName());
 			map.put("purchaseNumber", mortgageReserve.getPurchaseNumber());
 			map.put("remark", mortgageReserve.getRemark());
-			map.put("noRegisterSign", mortgageReserve.getNoRegisterSign());
+			String noRegisterSign="1";
+			if("1".equals(mortgageReserve.getOtherType())){
+				noRegisterSign="2";
+			}
+			map.put("noRegisterSign", noRegisterSign);
 			map.put("status", mortgageReserve.getStatus());
 			map.put("inserttime", inserttime);
 			map.put("empId", muo.getEmpid());
