@@ -527,7 +527,7 @@ select mm.*,
        nvl((
        select  j.NUM from T_WARRANTS_INVENTORY_STAT j
        where 1=1
-       and j.STATTIME =  to_char(sysdate-1,'yyyymmdd')
+       and j.STATTIME =  to_char(to_date($statTime$,'yyyymmdd')-1,'yyyymmdd')
        and mm.MORTGAGE_TYPE=j.mortgagetype
        and mm.WARRANTS_TYPE=j.warrantstype
        and mm.loan_type=j.loantype  
@@ -580,9 +580,7 @@ from(
          where t.mortgage_type = '1' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE, T.OTHER_TYPE) gg
          where 1 = 1
-          <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+         
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
              gg.INSERT_TIME <= '$statTime$'
@@ -639,9 +637,7 @@ from(
          where o.mortgage_type = '1' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.other_type, o.mortgage_type) gg
          where 1 = 1
-          <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+          
     <!-- <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -658,7 +654,7 @@ select mm.*,
        nvl((
        select  j.NUM from T_WARRANTS_INVENTORY_STAT j
        where 1=1
-       and j.STATTIME =  to_char(sysdate-1,'yyyymmdd')
+       and j.STATTIME =  to_char(to_date($statTime$,'yyyymmdd')-1,'yyyymmdd')
        and mm.MORTGAGE_TYPE=j.mortgagetype
        and mm.WARRANTS_TYPE=j.warrantstype
        and mm.loan_type=j.loantype  
@@ -681,9 +677,7 @@ select
          where t.mortgage_type = '2' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE) gg
          where 1 = 1
-         <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+        
    <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -710,9 +704,7 @@ select
          where o.mortgage_type = '2' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.mortgage_type) gg
          where 1 = 1
-         <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+        
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -730,7 +722,7 @@ select mm.*,
        nvl((
        select  j.NUM from T_WARRANTS_INVENTORY_STAT j
        where 1=1
-       and j.STATTIME =  to_char(sysdate-1,'yyyymmdd')
+       and j.STATTIME =  to_char(to_date($statTime$,'yyyymmdd')-1,'yyyymmdd')
        and mm.MORTGAGE_TYPE=j.mortgagetype
        and mm.WARRANTS_TYPE=j.warrantstype
        and mm.loan_type=j.loantype  
@@ -782,9 +774,7 @@ from(
          where t.mortgage_type = '1' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE, T.OTHER_TYPE) gg
          where 1 = 1
-          <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+          
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -841,9 +831,7 @@ from(
          where o.mortgage_type = '1' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.other_type, o.mortgage_type) gg
          where 1 = 1
-           <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+           
     <!--  <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -868,9 +856,7 @@ select
          where t.mortgage_type = '2' and t.status = '1'
          GROUP BY INSERT_TIME,T.MORTGAGE_TYPE, T.LOAN_TYPE) gg
          where 1 = 1
-          <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+         
    <!--   <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
@@ -897,9 +883,7 @@ select
          where o.mortgage_type = '2' and o.status = '1'
          GROUP BY INSERT_TIME,o.loan_type, o.mortgage_type) gg
          where 1 = 1
-           <![CDATA[
-          and gg.INSERT_TIME <= to_char(sysdate,'yyyymmdd')
-          ]]>
+           
    <!--   <isNotNull prepend="and" property="statTime" >
          <![CDATA[
             gg.INSERT_TIME <= '$statTime$'
